@@ -1,0 +1,15 @@
+.logo{
+    height: 50px;
+    margin-right: 10px;
+}
+
+.navbar-brand{
+    font-size: 1.7rem;
+}
+.nav-item{
+    font-size: 1.4rem;
+}
+
+tr{
+    cursor: pointer;
+}

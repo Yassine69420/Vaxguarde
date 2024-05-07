@@ -1,0 +1,34 @@
+img{
+    width: 100px;
+}
+
+h1{
+    font-size: 6rem;
+    width: 600px;
+    text-align: center;
+}
+
+.login-buttons{
+    display: flex;
+    justify-content: space-evenly;
+    margin : 40px;
+    width: 100%;
+}
+
+
+.middle-section{
+    display: flex;
+    
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    
+    height: 100vh;
+}
+
+button{
+    background-color: #5DA9A2;
+}
+button:hover{
+    background-color: #5DA9A2;
+}
