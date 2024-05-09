@@ -27,5 +27,5 @@ Route::get('/infirmier/enfants', function () {
     return view('listeEnfants', ['enfants' => $enfants]);
 });
 
-Route::view('/Parent','Parentlogin');
+Route::view('/Parent','Parent');
 Route::view('/infirmier','Infirmier'); 
