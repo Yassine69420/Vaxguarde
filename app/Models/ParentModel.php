@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ParentModel extends Model
+class ParentModel extends Model  
 {
     protected $table = 'Parents'; // Specify the table name
 
@@ -19,12 +19,12 @@ class ParentModel extends Model
         'adress',
         'telephone',
         'Email',
-        'Region',
-        'Pays',
+        'ville',
+        'date_naissance'
     ];
 
     public function enfants()
-    {
+    {  
         return $this->hasMany(Enfant::class, 'CIN_Parent', 'CIN');
     }
 }

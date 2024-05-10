@@ -13,3 +13,8 @@
 tr {
     cursor: pointer;
 }
+
+.active{
+   color: black !important;
+   background-color: rgb(214, 232, 222) !important;
+}

@@ -24,7 +24,7 @@
             <div class="collapse navbar-collapse " id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item align-middle ">
-                        <a class="nav-link m-2 " href="/infirmier">Home<span class="sr-only">(current)</span></a>
+                        <a class="nav-link m-2 " href="/infirmier">Profile<span class="sr-only">(current)</span></a>
 
                     </li>
                     <li class="nav-item align-middle">

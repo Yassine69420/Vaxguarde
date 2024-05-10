@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Enfant extends Model
 {
+
+
+    public $incrementing = false;
+
    protected $table = 'enfants'; // Specify the table name
 
     protected $primaryKey = 'id'; // Specify the primary key field
@@ -14,9 +18,9 @@ class Enfant extends Model
     public $timestamps = false; // Disable timestamps (created_at, updated_at)
 
     protected $fillable = [
+        'id',
         'nom',
         'prenom',
-        'Adress',
         'date_naissance',
         'CIN_Parent',
     ];

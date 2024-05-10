@@ -14,7 +14,7 @@ class CreateInfirmiersTable extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->string('Ville');
-            $table->date('date_de_naissance');
+            $table->date('date_naissance');
             $table->string('nom_Hopital'); // Foreign key column
             
             

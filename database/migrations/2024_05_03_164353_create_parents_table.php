@@ -11,15 +11,15 @@ class CreateParentsTable extends Migration
         Schema::create('Parents', function (Blueprint $table) {
             $table->string('CIN')->primary();
             $table->string('nom');
+            $table->date('date_naissance');
             $table->string('prenom');
             $table->string('adress')->nullable();
             $table->string('telephone')->nullable();
             $table->string('Email')->nullable();
-            $table->string('Region')->nullable();
-            $table->string('Pays')->default('Morocco');
+            $table->string('Ville')->nullable();
         });
     }
-
+    
     public function down()
     {
         Schema::dropIfExists('Parents');

@@ -10,7 +10,6 @@ class CreateVaccinsTable extends Migration
     {
         Schema::create('Vaccins', function (Blueprint $table) {
             $table->string('nom')->primary();
-            $table->boolean('status')->default(false);
             $table->text('semaine');
         });
     }
