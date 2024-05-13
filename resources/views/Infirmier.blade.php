@@ -17,60 +17,47 @@
         width: 100%;
     }
 </style>
+<form action="/infirmier/{{ $infirmier->INP }}/edit/validate" method="POST">
+    @csrf
+    @method('PATCH')
+    <div class="row">
+        <div class="secondcol col-lg bg-light p-0 d-flex justify-center align-items-center">
 
-<div class="row">
-    <div class="secondcol col-lg bg-light p-0 d-flex justify-center align-items-center">
-
-        <div class="container-lg">
-            <div class="col-lg border-right row3">
-                <div class="p-2 py-3">
-                    <div class="row mt-2 mrg">
-                        <div class="col-md-6">
-                            <label class="labels">Nom</label>
-                            <input type="text" class="form-control" placeholder="Nom" value="" readonly />
+            <div class="container-lg">
+                <div class="col-lg border-right row3">
+                    <div class="p-2 py-3">
+                        <div class="row mt-2 mrg">
+                            <div class="col-md-6">
+                                <label class="labels">Nom</label>
+                                <input name="nom"  type="text" class="form-control" placeholder="{{ $infirmier->nom }}"
+                                    value="{{ $infirmier->nom }}" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Prenom</label>
+                                <input  name="prenom"  type="text" class="form-control" placeholder="{{ $infirmier->prenom }}"
+                                    value="{{ $infirmier->prenom }}" />
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label class="labels">Prenom</label>
-                            <input type="text" class="form-control" placeholder="Prenom" value="" readonly />
+                        <div class="row mt-2 mrg">
+                            <div class="col-md-6">
+                                <label class="labels">Nom d'Hopital</label>
+                                <input name="nom_Hopital"  type="text" class="form-control" placeholder="{{ $infirmier->nom_Hopital }}"
+                                    value="{{ $infirmier->nom_Hopital }}" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Ville</label>
+                                <input name="Ville"  type="text" class="form-control" placeholder="{{ $infirmier->Ville }}"
+                                    value="{{ $infirmier->Ville }}" />
+                            </div>
                         </div>
+    
                     </div>
-                    <div class="row mt-2 mrg">
-                        <div class="col-md-6">
-                            <label class="labels">CIN</label>
-                            <input type="text" class="form-control" placeholder="First Name" value=""
-                                readonly />
-                        </div>
-                        <div class="col-md-6">
-                            <label class="labels">Telephone</label>
-                            <input type="text" class="form-control" placeholder="numero de Telephone" value=""
-                                readonly />
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12 mrg">
-                            <label class="labels">Adresse</label>
-                            <input type="text" class="form-control" placeholder="Address " value="" readonly />
-                        </div>
-                    </div>
-                    <div class="row mt-3 mrg">
-                        <div class="col-md-6">
-                            <label class="labels">Country</label>
-                            <input type="text" class="form-control" placeholder="Country" value="" readonly />
-                        </div>
-                        <div class="col-md-6">
-                            <label class="labels">Region</label>
-                            <input type="text" class="form-control" placeholder="State/Region" value=""
-                                readonly />
-                        </div>
-                    </div>
-                    <div class="mt-5 text-center">
-                        <button class="btn btn-outline-light profile-button" type="button">
-                            Edit profile
+                    <div class="mt-1 mb-4 text-center">
+                        <button type="submit" class="btn btn-outline-primary profile-button" type="button">
+                            Save
                         </button>
                     </div>
                 </div>
             </div>
-
         </div>
-    </div>
-</div>
+</form>

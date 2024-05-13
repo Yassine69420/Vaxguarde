@@ -14,7 +14,7 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light ">
-        <div class="container-lg">
+        <div class="container-sm">
             <img src="{{ asset('assets/images/logot.png') }}" alt="" class="logo">
             <a class="navbar-brand align-middle" href="/">Vaxguarde</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
@@ -42,3 +42,4 @@
         </div>
     </nav>
 </body>
+

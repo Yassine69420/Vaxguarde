@@ -9,6 +9,7 @@ class EnfantController extends Controller
 {
     function show_all()
     {
+        
         $enfants = Enfant::paginate(10);
         return view('listeEnfants', ['enfants' => $enfants]);
     }
@@ -44,9 +45,9 @@ class EnfantController extends Controller
         do {
             $letters = chr(rand(65, 90)) . chr(rand(65, 90));
             $numbers = rand(100000, 999999);
-            $enfantId = $letters . $numbers;
+            $enfantId = $letters . $numbers; 
             $existingEnfant = Enfant::where('id', $enfantId)->exists();
         } while ($existingEnfant);
-        return $enfantId;
+        return $enfantId; 
     }
 }

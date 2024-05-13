@@ -24,7 +24,7 @@
         <div class="col-md-12">
             <div class="row ">
 
-                <table class="table  m-3">
+                <table class="table table-striped m-3">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
