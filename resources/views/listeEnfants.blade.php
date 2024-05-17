@@ -8,16 +8,19 @@
 <x-header>
     <div class="d-flex justify-content-between">
         <div>Liste des enfants</div>
-    <div class="dropdown">
-  <button class="btn btn-light align-middle fs-5 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-    Ajouter Enfant
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item  btn btn-light align-middle fs-5" href="/infirmier/createParent">nouveau Parent</a></li>
-    <li><a class="dropdown-item btn btn-light align-middle fs-5" href="/infirmier/createEnfant">Parent deja exist</a></li>
-  </ul>
-</div>
-</div>
+        <div class="dropdown">
+            <button class="btn btn-light align-middle fs-5 dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Ajouter Enfant
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item  btn btn-light align-middle fs-5" href="/infirmier/createParent">nouveau
+                        Parent</a></li>
+                <li><a class="dropdown-item btn btn-light align-middle fs-5" href="/infirmier/createEnfant">Parent deja
+                        exist</a></li>
+            </ul>
+        </div>
+    </div>
 </x-header>
 <div class="container-lg">
     <div class="row">
@@ -43,17 +46,27 @@
                                 <td class="fs-4 align-middle">{{ $enfant->date_naissance }}</td>
                                 <td>
                                     <a href="/infirmier/{{ $enfant->id }}/edit" class="btn fs-5 btn-primary">Edit</a>
-                                    <button  class="btn fs-5 btn-danger">delete</button>
-                                    
+
+
+                                    <button form="delete" class="btn fs-5 btn-danger">delete</button>
+
+
                                 </td>
                             </tr>
+                            <form id="delete" action="/{{ $enfant->id }}/delete" method="POST">
+                                @csrf
+                                @method('DELETE')
+                            </form>
                         @endforeach
                     </tbody>
                 </table>
 
                 <div>
-     {{ $enfants->links('pagination::bootstrap-5') }}
-</div>
+                    {{ $enfants->links('pagination::bootstrap-5') }}
+                </div>
+
+
+
             </div>
         </div>
     </div>

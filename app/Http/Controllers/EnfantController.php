@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class EnfantController extends Controller
 {
+
+   function find($id){
+       $enfant = Enfant::find($id);
+       return view('enfantpfp', ['enfant' => $enfant]);
+   }
+
+    
     function show_all()
     {
         
@@ -18,6 +25,13 @@ class EnfantController extends Controller
     {
         return view('createEnfant');
     }
+
+
+    function delete($id) {
+    $enfant = Enfant::findorfail($id);
+    $enfant->delete();
+    return redirect("/infirmier/enfants");
+}
 
     public function create()
     {

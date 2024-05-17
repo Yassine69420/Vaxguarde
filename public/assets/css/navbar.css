@@ -14,7 +14,21 @@ tr {
     cursor: pointer;
 }
 
-.active{
-   color: black !important;
-   background-color: rgb(214, 232, 222) !important;
+.active {
+    color: black !important;
+    background-color: rgb(214, 232, 222) !important;
 }
+
+.card-body {
+    border: 1px #5DA9A2 solid;
+    border-radius: 5px;
+    margin-top: 50px;
+}
+
+
+
+ .idk {
+        display: inline-block;
+        margin: 57px ; 
+        cursor: pointer ;
+    }

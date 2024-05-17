@@ -31,6 +31,9 @@
                         <a class="nav-link m-2 " href="/infirmier/enfants">liste d'enfants</a>
                     </li>
                     <li class="nav-item align-middle">
+                        <a class="nav-link m-2 " href="/infirmier/vacciner">Vacciner</a>
+                    </li>
+                    <li class="nav-item align-middle">
                         <a class="nav-link m-2 " href="/infirmier/Historique">Historique</a>
                     </li>
                     <li class="nav-item align-middle">
