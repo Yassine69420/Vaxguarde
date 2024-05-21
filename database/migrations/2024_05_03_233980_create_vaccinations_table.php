@@ -11,11 +11,11 @@ class CreateVaccinationsTable extends Migration
     {
         Schema::create('Vaccinations', function (Blueprint $table) {
             $table->timestamp('Date')->nullable()->useCurrent();
-            $table->string('Lieu');
+            $table->string('INP_infirmier');
             $table->string('ID_enfant');
             $table->string('type_vaccination');
             $table->foreign('ID_enfant')->references('id')->on('enfants')->onDelete('cascade'); // Ensure onDelete is set appropriately
-            $table->foreign('type_vaccination')->references('nom')->on('vaccins');
+            
         });
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Enfant;
+use App\Models\Vaccination;
 
 class vaccinationcontroller extends Controller
 {
@@ -13,27 +14,47 @@ class vaccinationcontroller extends Controller
 
     public function showemptyForm()
     {
-        return view('vaccination');
+        return view('emptyvaccination');
     }
     public function submitVaccinationForm()
     {
-        // Retrieve the child ID and vaccine from the request
+        
         $id = request()->input('id');
         $vaccine = request()->input('vaccine');
 
-        // Find the Enfant model instance by ID
+      
         $enfant = Enfant::find($id);
 
         if ($enfant) {
-            // Dynamically set the vaccine status to true
+          
             $vaccineField = "{$vaccine}";
             $enfant->$vaccineField = true;
-
           
             $enfant->save();
+
+          
+            $vaccination = new Vaccination();
+            $vaccination->Date = now(); 
+            $vaccination->INP_infirmier = session('INP'); 
+            $vaccination->ID_enfant = $id;
+            $vaccination->type_vaccination = $vaccine;
+            $vaccination->save();
         }
 
-        // Redirect after processing
+      
         return redirect("/infirmier/enfants");
     }
+
+
+
+
+    public function showVaccinationHistory()
+    {
+       
+        $vaccinations = Vaccination::orderBy('Date', 'desc')->get();
+
+        
+        return view('history', ['vaccinations' => $vaccinations]);
+    }
+
 }

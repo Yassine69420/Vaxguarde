@@ -6,7 +6,7 @@
 
 
 @include('components.navbar')
-<x-header>Profile</x-header>
+<x-header>Profile Edit</x-header>
 
 <style>
     .secondcol {

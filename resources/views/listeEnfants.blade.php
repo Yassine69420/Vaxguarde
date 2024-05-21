@@ -45,7 +45,7 @@
                                 <td class="fs-4 align-middle">{{ $enfant->prenom }}</td>
                                 <td class="fs-4 align-middle">{{ $enfant->date_naissance }}</td>
                                 <td>
-                                    <a href="/infirmier/{{ $enfant->id }}/edit" class="btn fs-5 btn-primary">Edit</a>
+                               
 
 
                                     <button form="delete" class="btn fs-5 btn-danger">delete</button>

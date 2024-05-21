@@ -28,14 +28,29 @@ Route::Post('/infirmier/createParent/validation', [ParentController::class, 'cre
 #profile infimirer
 
 Route::get('/infirmier/vacciner/{id}/{vaccine}', [vaccinationcontroller::class, 'showVaccinationForm'])->name('vaccinate');
-Route::get('/infirmier/vacciner', [vaccinationcontroller::class, 'showemptyForm'])->name('vaccinate');
-Route::patch('/infirmier/vacciner', [vaccinationController::class, 'submitVaccinationForm'])->name('submitVaccination');
 
+Route::patch('/infirmier/vacciner', [vaccinationController::class, 'submitVaccinationForm'])->name('submitVaccination');
+Route::get('/infirmier/Historique', [vaccinationController::class, 'showVaccinationHistory'])->name('vaccination.history');
 #login Infirmier
-Route::get('/adminlogin', [infirmierController::class, 'adminlogin']);
+Route::get('/adminlogin', [infirmierController::class, 'adminlogin'])->name('adminlogin');
 Route::post('/adminlogin', [infirmierController::class, 'valider']);
 
 #edit
-Route::get('infirmier/{INP}', [infirmierController::class, 'showpfp']);
+Route::get('infirmier/{INP}', [infirmierController::class, 'showpfp'])->name('infirmier.dashboard');
 Route::get('infirmier/{INP}/edit', [infirmierController::class, 'find']);
 Route::patch('infirmier/{INP}/edit/validate', [infirmierController::class, 'update']);
+
+
+
+
+
+Route::post('/logout', function () {
+   
+    session()->forget('INP');
+
+    session()->invalidate();
+    session()->regenerateToken();
+     
+    
+    return redirect('/');
+})->name('logout');

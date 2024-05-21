@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Infirmier;
-
+use Illuminate\Contracts\Session\Session;
 
 class infirmierController extends Controller
 {
@@ -47,13 +47,31 @@ class infirmierController extends Controller
         return view('Infirmier', ['infirmier' => $infirmier]);
     }
 
-    function adminlogin(){
+    function adminlogin()
+    {
         return view('adminlogin');
     }
-    function valider(){
-       dd(request());
+
+    public function valider()
+    {
+        request()->validate([
+            'INP' => 'required|string',
+            'date' => 'required|date',
+        ]);
+
+        $INP = request()->input('INP');
+        $birthday = request()->input('date');
+        
+        $infirmier = Infirmier::where('INP', $INP)->where('date_naissance', $birthday)->first();
+
+        if ($infirmier) {
+
+            session(['INP' => $INP]);
+
+            return redirect()->route('infirmier.dashboard', ['INP' => $INP]);
+
+        } else {
+            return redirect()->route('adminlogin')->withErrors(['INP' => 'Invalid credentials.']);
+        }
     }
-
-
-    
 }
