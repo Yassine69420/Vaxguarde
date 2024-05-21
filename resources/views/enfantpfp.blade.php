@@ -31,10 +31,10 @@
             <div class="col-6 col-md-3">
                 <small>Age</small> <br>
                 <?php
-                $dateOfBirth = new DateTime($enfant->date_naissance);
-                $currentDate = new DateTime();
+                $datenaissance = new DateTime($enfant->date_naissance);
+                $Datetoday = new DateTime();
                 
-                $ageInterval = $dateOfBirth->diff($currentDate);
+                $ageInterval = $datenaissance->diff($Datetoday);
                 
                 if ($ageInterval->y < 2) {
                     $age = $ageInterval->m + $ageInterval->y * 12; // Convert years to months and add

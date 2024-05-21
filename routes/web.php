@@ -5,7 +5,7 @@ use App\Http\Controllers\infirmierController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\vaccinationcontroller;
 use Illuminate\Support\Facades\Route;
-use PhpParser\Node\Stmt\Return_;
+
 
 #main page
 Route::view('/', 'welcome');
@@ -31,18 +31,11 @@ Route::get('/infirmier/vacciner/{id}/{vaccine}', [vaccinationcontroller::class, 
 Route::get('/infirmier/vacciner', [vaccinationcontroller::class, 'showemptyForm'])->name('vaccinate');
 Route::patch('/infirmier/vacciner', [vaccinationController::class, 'submitVaccinationForm'])->name('submitVaccination');
 
+#login Infirmier
+Route::get('/adminlogin', [infirmierController::class, 'adminlogin']);
+Route::post('/adminlogin', [infirmierController::class, 'valider']);
 
-
-
-
-
-
-
-
-
-
-
-Route::get('infirmier/{INP}', [infirmierController::class, 'infpfp']);
 #edit
+Route::get('infirmier/{INP}', [infirmierController::class, 'showpfp']);
 Route::get('infirmier/{INP}/edit', [infirmierController::class, 'find']);
 Route::patch('infirmier/{INP}/edit/validate', [infirmierController::class, 'update']);

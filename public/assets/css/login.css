@@ -1,0 +1,128 @@
+body {
+  background-color: hsla(174, 100%, 25%, 0.753);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  margin: 4px;
+  height: 100vh;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+}
+.form-container {
+  width: 500px;
+  height: 440px;
+  border-radius: 0.75rem;
+  background-color: rgb(247, 247, 247);
+  padding: 3rem;
+  color: rgb(255, 255, 255);
+}
+.title {
+  text-align: center;
+  font-size: 2rem;
+  margin: 15px;
+  color: black;
+}
+.form {
+  margin-top: 1.5rem;
+}
+
+.input-group {
+  width: 100%;
+  box-sizing: border-box; /* Include padding and border in width calculation */
+  margin-top: 1.2rem;
+
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.25rem;
+}
+.input-group label {
+  display: block;
+  color: rgb(3, 0, 0);
+  margin-bottom: 5px;
+}
+.input-group input {
+  width: 100%;
+  border-radius: 0.2rem;
+  border: 1px solid rgb(0, 39, 27);
+  outline: 0;
+  background-color: rgb(255, 255, 255);
+  padding: 15px 9px 15px 9px;
+  color: rgb(0, 39, 27);
+  box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+.input-group input:focus {
+  border: 1.5px solid hsl(174, 100%, 20%);
+}
+.sign {
+  display: block;
+  margin-top: 30px;
+  font-size: 1.1rem;
+  width: 100%;
+  background-color: hsl(174, 100%, 25%);
+  padding: 13px;
+  text-align: center;
+  color: rgb(249, 249, 249);
+  border: none;
+  border-radius: 1.4rem;
+  font-weight: 600;
+}
+.sign:hover {
+  background-color: hsl(174, 100%, 29%);
+  transition: 0.25s;
+}
+#empty_div {
+  font-weight: 200;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+  color: black;
+}
+.footer a {
+  color: hsl(174, 100%, 25%);
+
+  transition: all 1s ease-in-out;
+}
+
+@media (max-width : 600px){
+  .title{
+    font-size: 1.5rem;
+  }
+  
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.input-group.valid input {
+  border: 1px solid green;
+}
+
+
+.input-group.invalid input {
+  border: 1px solid red;
+}
+
+
+.error {
+   background: #F2DEDE;
+   color: #A94442;
+   padding: 10px;
+   width: 95%;
+   border-radius: 5px;
+   margin-bottom:  10px;
+   
+}
