@@ -18,30 +18,30 @@ class vaccinationcontroller extends Controller
     }
     public function submitVaccinationForm()
     {
-        
+
         $id = request()->input('id');
         $vaccine = request()->input('vaccine');
 
-      
+
         $enfant = Enfant::find($id);
 
         if ($enfant) {
-          
+
             $vaccineField = "{$vaccine}";
             $enfant->$vaccineField = true;
-          
+
             $enfant->save();
 
-          
+
             $vaccination = new Vaccination();
-            $vaccination->Date = now(); 
-            $vaccination->INP_infirmier = session('INP'); 
+            $vaccination->Date = now();
+            $vaccination->INP_infirmier = session('INP');
             $vaccination->ID_enfant = $id;
             $vaccination->type_vaccination = $vaccine;
             $vaccination->save();
         }
 
-      
+
         return redirect("/infirmier/enfants");
     }
 
@@ -50,11 +50,10 @@ class vaccinationcontroller extends Controller
 
     public function showVaccinationHistory()
     {
-       
+
         $vaccinations = Vaccination::orderBy('Date', 'desc')->get();
 
-        
+
         return view('history', ['vaccinations' => $vaccinations]);
     }
-
 }

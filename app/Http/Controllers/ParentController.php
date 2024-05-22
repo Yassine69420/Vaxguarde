@@ -8,13 +8,13 @@ use App\Models\ParentModel;
 class ParentController extends Controller
 {
 
-    function  view(){
-    return view("createParent" );
-
+    function  view()
+    {
+        return view("createParent");
     }
     public function create()
     {
-       
+        #valider
         $validatedData = request()->validate([
             'CIN' => ['required', 'max:255', 'min:4'],
             'nom' => ['required', 'max:255', 'min:3'],
@@ -26,14 +26,14 @@ class ParentController extends Controller
             'Email' => ['required', 'Email'],
         ]);
 
-        // check if the parent exists in the database 
+        #voir s'il existe
         $existingParent = ParentModel::where('CIN', $validatedData['CIN'])->first();
 
         if ($existingParent) {
-            //if exists , redirect back to the form 
-            return redirect('/infirmier/enfants');
+            #si oui , passer a la next page 
+            return redirect('/infirmier/createEnfant');
         }
-        // Create a new parent if not already existing
+        #si non creer 
         ParentModel::create([
             'CIN' => $validatedData['CIN'],
             'nom' => $validatedData['nom'],
@@ -45,7 +45,7 @@ class ParentController extends Controller
             'date_naissance' => $validatedData['date_naissance'],
         ]);
 
-        // Redirect to createEnfant after successful creation
+        #puis passer a la page suivante
         return redirect('/infirmier/createEnfant');
     }
 }

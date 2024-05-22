@@ -12,7 +12,7 @@
                 @endforeach
             </ul>
         </div>
-    @endif 
+      @endif 
     <form class="form" id="loginForm" method="POST" action="{{ route('adminlogin') }}">
     @csrf
     <div class="input-group">
