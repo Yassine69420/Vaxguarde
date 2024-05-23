@@ -22,13 +22,21 @@
 
 </x-header>
 
-
+ @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 <form action="/infirmier/createEnfant/validation" method="POST">
         @csrf
 
     <div class="row">
         <div class="secondcol col-lg bg-light p-0 d-flex justify-center align-items-center">
-
+             
             <div class="container-lg">
                 <div class="col-lg border-right row3 ">
                     <div class="p-2 py-3">

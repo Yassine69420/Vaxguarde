@@ -13,8 +13,8 @@
 
     <div class="container-lg">
     
-        <table class="table">
-            <thead>
+        <table class="table mt-4 table-bordered ">
+            <thead style="background-color: #5DA9A2 ; color:white">
                 <tr>
                     <th>Date</th>
                     <th>INP Infirmier</th>
@@ -25,10 +25,10 @@
             <tbody>
                 @foreach ($vaccinations as $vaccination)
                     <tr>
-                        <td>{{ $vaccination->Date }}</td>
-                        <td>{{ $vaccination->INP_infirmier }}</td>
-                        <td>{{ $vaccination->ID_enfant }}</td>
-                        <td>{{ $vaccination->type_vaccination }}</td>
+                        <td class="fs-5 align-middle" >{{ $vaccination->Date }}</td>
+                        <td class="fs-5 align-middle" >{{ $vaccination->INP_infirmier }}</td>
+                        <td class="fs-5 align-middle" >{{ $vaccination->ID_enfant }}</td>
+                        <td class="fs-5 align-middle" >{{ $vaccination->type_vaccination }}</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-   public function up()
+    public function up()
     {
         Schema::create('enfants', function (Blueprint $table) {
             $table->String('id')->primary();
@@ -33,8 +33,7 @@ return new class extends Migration
             $table->boolean('MMR_status')->default(false);
             $table->boolean('Varicella_status')->default(false);
             $table->foreign('CIN_Parent')->references('CIN')->on('Parents');
-            
-          
+            $table->timestamp('created_at')->nullable()->useCurrent();
         });
     }
 

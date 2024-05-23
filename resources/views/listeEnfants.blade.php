@@ -22,7 +22,33 @@
         </div>
     </div>
 </x-header>
+ @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 <div class="container-lg">
+    <form id="searchForm" action="{{ url('/infirmier/enfants') }}" method="GET">
+        @csrf
+        <div class="input-group w-25 mt-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text">ID</span>
+            </div>
+            <input type="search" name="id" class="form-control" placeholder="ID d'enfant" aria-label="MX293234"
+                aria-describedby="basic-addon1">
+            <button type="submit" class="btn btn-outline-success">Trouver</button>
+        </div>
+    </form>
+
+    @if (session('error'))
+        <div class="alert alert-danger mt-2">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-12">
             <div class="row ">
@@ -38,6 +64,7 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         @foreach ($enfants as $enfant)
                             <tr onclick="window.location='/infirmier/enfants/{{ $enfant->id }}'">
                                 <td class="fs-4 align-middle">{{ $enfant->id }}</td>
@@ -45,10 +72,11 @@
                                 <td class="fs-4 align-middle">{{ $enfant->prenom }}</td>
                                 <td class="fs-4 align-middle">{{ $enfant->date_naissance }}</td>
                                 <td>
-                               
 
 
-                                    <button form="delete" class="btn fs-5 btn-danger">delete</button>
+
+                                    <button class="btn fs-5 btn-info" onclick="window.location='/infirmier/enfants/{{ $enfant->id }}'">Voir</button>
+                                    <button form="delete" class="btn fs-5 btn-danger">Suprimer</button>
 
 
                                 </td>
@@ -65,9 +93,21 @@
                     {{ $enfants->links('pagination::bootstrap-5') }}
                 </div>
 
-
-
             </div>
         </div>
     </div>
 </div>
+
+
+
+{{-- <script>
+    function redirectToID(event) {
+        event.preventDefault();
+        var enfantID = document.getElementById('ID').value;
+        if (enfantID) {
+            window.location.href = '/infirmier/enfants/' + enfantID;
+        } else {
+            alert('ID introuvable');
+        }
+    }
+</script> --}}

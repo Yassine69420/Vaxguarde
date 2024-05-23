@@ -10,15 +10,27 @@ class EnfantController extends Controller
     #trouver enfant et passer les infos 
     function find($id)
     {
+
         $enfant = Enfant::find($id);
         return view('enfantpfp', ['enfant' => $enfant]);
     }
 
-    #aficher tous les enfants avec pagination de 10 elements par page
-    function show_all()
+    #affichage de tous les enfants avec pagination de 10 , ou d'un seul enfant
+    public function show_all()
     {
-        $enfants = Enfant::paginate(10);
-        return view('listeEnfants', ['enfants' => $enfants]);
+        $enfants = Enfant::query();
+
+        if (request()->has('id')) {
+
+            request()->validate([
+                'id' => ['required', 'max:8', 'min:2'],
+            ]);
+            $enfants->where('id', request()->get('id'));
+        }
+        $enfants->orderBy('created_at', 'desc');
+        return view('listeEnfants', [
+            'enfants' => $enfants->paginate(10), 
+        ]);
     }
     # afficher la page de creation
     function show_create()
@@ -70,5 +82,28 @@ class EnfantController extends Controller
         } while ($existingEnfant);
         #retourner id 
         return $enfantId;
+    }
+
+
+    public function findsingle()
+    {
+        // Validate the request input
+        $validatedData = request()->validate([
+            'ID' => ['required', 'max:255', 'min:4']
+        ]);
+
+        // Find the enfant by ID
+        $enfant = Enfant::find($validatedData['ID']);
+
+        // Check if enfant is found
+        if ($enfant) {
+            // Return the view with the found enfant
+            return view('listeEnfants', ['enfants' => [$enfant]]);
+        } else {
+            // Return the view with all enfants if the specific one is not found
+            $enfants = Enfant::all();
+            return view('listeEnfants', ['enfants' => $enfants])
+                ->with('error', 'Enfant not found, displaying all enfants.');
+        }
     }
 }

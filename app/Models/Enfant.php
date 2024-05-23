@@ -11,7 +11,7 @@ class Enfant extends Model
 
     public $incrementing = false;
 
-   protected $table = 'enfants'; // Specify the table name
+    protected $table = 'enfants'; // Specify the table name
 
     protected $primaryKey = 'id'; // Specify the primary key field
 

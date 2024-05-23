@@ -14,6 +14,8 @@ Route::view('/', 'welcome');
 Route::middleware(['admin'])->group(function () {
     #tous les enfants
     Route::get('/infirmier/enfants', [EnfantController::class, "show_all"]);
+    Route::post('/infirmier/enfants', [EnfantController::class, 'show_all']);
+    
     #un seul enfant
     Route::get("/infirmier/enfants/{id}", [EnfantController::class, "find"]);
     #add and delete enfant
@@ -29,7 +31,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/infirmier/vacciner/{id}/{vaccine}', [VaccinationController::class, 'showVaccinationForm'])->name('vaccinate');
     Route::patch('/infirmier/vacciner', [VaccinationController::class, 'submitVaccinationForm'])->name('submitVaccination');
     Route::get('/infirmier/Historique', [VaccinationController::class, 'showVaccinationHistory'])->name('vaccination.history');
-
+     
 
     #edit
     Route::get('infirmier/{INP}', [InfirmierController::class, 'showpfp'])->name('infirmier.dashboard');
