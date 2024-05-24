@@ -45,6 +45,7 @@ Route::get('/adminlogin', [infirmierController::class, 'adminlogin'])->name('adm
 Route::post('/adminlogin', [infirmierController::class, 'valider']);
 Route::post('/logout', [infirmierController::class, 'logout'])->name('logout');
 
-
-
-Route::view('/Parent', 'Parent');
+#login et logout pour Parent
+Route::get('/Parent/{CIN}', [ParentController::class, 'showparent'])->name('Parentpfp');;
+Route::get('/Parentlogin', [ParentController::class, 'Parentlogin'])->name('Parentlogin');
+Route::post('/Parentlogin', [ParentController::class, 'valider']);

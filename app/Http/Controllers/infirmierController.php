@@ -73,7 +73,7 @@ class infirmierController extends Controller
             return redirect()->route('infirmier.dashboard', ['INP' => $INP]);
         } else {
             #sinon retour avec erreur
-            return redirect()->route('adminlogin')->withErrors(['INP' => 'Invalid credentials.']);
+            return redirect()->route('adminlogin')->withErrors(['INP' => 'Donnes sont incorrects']);
         }
     }
 

@@ -35,7 +35,7 @@ return new class extends Migration
             $table->foreign('CIN_Parent')->references('CIN')->on('Parents');
             $table->timestamp('created_at')->nullable()->useCurrent();
         });
-    }
+    }        
 
     public function down()
     {

@@ -17,19 +17,23 @@ class EnfantController extends Controller
 
     #affichage de tous les enfants avec pagination de 10 , ou d'un seul enfant
     public function show_all()
-    {
+    {   
+        #preparer la requete 
         $enfants = Enfant::query();
-
+        #voir si la requete Post a le variable id d'enfant
         if (request()->has('id')) {
-
+            #valider        
             request()->validate([
                 'id' => ['required', 'max:8', 'min:2'],
             ]);
+            #trouver l'enfant 
             $enfants->where('id', request()->get('id'));
         }
+        #sinon afficher tous les enfants avec ordre descendant 
         $enfants->orderBy('created_at', 'desc');
+        #retourner la vue listeEnfant avec les variables ENfant 
         return view('listeEnfants', [
-            'enfants' => $enfants->paginate(10), 
+            'enfants' => $enfants->paginate(10),
         ]);
     }
     # afficher la page de creation

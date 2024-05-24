@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ParentModel extends Model  
 {
+
+    public $incrementing = false;
+    
     protected $table = 'Parents'; // Specify the table name
 
     protected $primaryKey = 'CIN'; // Specify the primary key field

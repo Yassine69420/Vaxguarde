@@ -5,7 +5,7 @@
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="{{ asset('assets\css\pfp.css') }}">
-
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
 @include('components.navbar')
 <x-header>Profile</x-header>
 <div class="profile-page pt-4 ">
@@ -16,7 +16,7 @@
         </div>
         <x-header></x-header>
         <div class="card mt-5 p-5">
-            <div class="container">
+            <div class="container-lg">
 
                 <div class="row">
                     <div class="col">
