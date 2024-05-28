@@ -91,7 +91,7 @@
                         $ageLabel = 'moi' . ($age != 1 ? 's' : ''); // Keep it as months for consistency
                     }
                     ?>
-                    <tr scope="row" onclick="window.location='/Parent/{{ $parent->CIN }}/{{ $enfant->id }}'">
+                    <tr scope="row" style="cursor: pointer"  onclick="window.location='/Parent/{{ $parent->CIN }}/{{ $enfant->id }}'">
                         <td ><strong> {{ $enfant->id }}</strong></td>
                         <td>{{ $enfant->nom }} {{ $enfant->prenom }}</td>
                         <td>{{ $age }} {{ $ageLabel }} </td>

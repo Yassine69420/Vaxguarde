@@ -17,19 +17,20 @@
         <table class="table mt-4 table-bordered ">
             <thead style="background-color: #5DA9A2 ; color:white">
                 <tr>
-                    <th>Date</th>
                     <th>INP Infirmier</th>
                     <th>ID Enfant</th>
                     <th>Type Vaccination</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($vaccinations as $vaccination)
                     <tr>
-                        <td class="fs-5 align-middle" >{{ $vaccination->Date }}</td>
                         <td class="fs-5 align-middle" >{{ $vaccination->INP_infirmier }}</td>
                         <td class="fs-5 align-middle" >{{ $vaccination->ID_enfant }}</td>
                         <td class="fs-5 align-middle" >{{ $vaccination->type_vaccination }}</td>
+                        <td class="fs-5 align-middle">{{ date('Y-m-d', strtotime($vaccination->Date)) }}</td>
+
                     </tr>
                 @endforeach
             </tbody>

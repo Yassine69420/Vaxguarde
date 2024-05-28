@@ -38,11 +38,17 @@
         <div class="container-lg">
             <form id="searchForm" action="{{ url('/infirmier/enfants') }}" method="GET">
                 @csrf
-                <div class="input-group w-25 mt-4">
+                <div class="input-group w-75 mt-4">
                     <div class="input-group-prepend">
                         <span class="input-group-text">ID</span>
                     </div>
-                    <input type="search" name="id" class="form-control" placeholder="ID d'enfant" aria-label="MX293234"
+                    <input type="search" name="id" class="form-control " placeholder="ID d'enfant" aria-label="MX293234"
+                    aria-describedby="basic-addon1">
+                      <button type="submit" class="btn btn-outline-success mr-5">Trouver</button>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">nom</span>
+                    </div>
+                    <input type="search" name="nom" class="form-control m" placeholder="nom d'enfant" aria-label="MX293234"
                     aria-describedby="basic-addon1">
                     <button type="submit" class="btn btn-outline-success">Trouver</button>
                 </div>
@@ -71,10 +77,10 @@
                         
                         @foreach ($enfants as $enfant)
                         <tr onclick="window.location='/infirmier/enfants/{{ $enfant->id }}'">
-                            <td class="fs-4 align-middle">{{ $enfant->id }}</td>
-                            <td class="fs-4 align-middle">{{ $enfant->nom }}</td>
-                            <td class="fs-4 align-middle">{{ $enfant->prenom }}</td>
-                            <td class="fs-4 align-middle">{{ $enfant->date_naissance }}</td>
+                            <td class="fs-5 align-middle">{{ $enfant->id }}</td>
+                            <td class="fs-5 align-middle">{{ $enfant->nom }}</td>
+                            <td class="fs-5 align-middle">{{ $enfant->prenom }}</td>
+                            <td class="fs-5 align-middle">{{ $enfant->date_naissance }}</td>
                             <td>
                                 
                                 

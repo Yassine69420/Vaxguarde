@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #008073c0 !important;
+}
+
+.container {
+    position: relative;
+    max-width: 700px;
+    width: 100%;
+    background: #fff;
+    padding: 25px;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.header {
+    max-width: 700px;
+    font-size: 1.25rem;
+    width: 100%;
+    background: #008073c0;
+    color: #ffffff;
+    padding: 25px;
+    font-family: "poppins";
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+}
+.cont {
+    display: flex;
+    flex-direction: column;
+}
+
+.container .form {
+    margin-top: 30px;
+}
+
+.input-box {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.input-box label {
+    color: #333;
+}
+
+.form :where(.input-box input, .select-box) {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    color: #707070;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+}
+
+.input-box input:focus {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.form .column {
+    display: flex;
+    column-gap: 15px;
+}
+
+.form button {
+    height: 55px;
+    width: 100%;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 30px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: hsla(174, 100%, 25%, 0.753);
+}
+
+.form button:hover {
+    background: hsla(174, 100%, 19%, 0.753);
+}
+
+@media screen and (max-width: 650px) {
+    .form .column {
+        flex-wrap: wrap;
+    }
+
+    .form :where(.gender-option, .gender) {
+        row-gap: 15px;
+    }
+}
+
+.form {
+    width: 100%;
+    margin-top: 5px !important;
+}

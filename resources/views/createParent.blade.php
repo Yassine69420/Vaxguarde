@@ -17,10 +17,18 @@
 
 @include('components/navbar')
 
-<x-header>
+<x-header >
+<div class="d-flex justify-content-between">
 
-    <div>Parent infos</div>
-
+    
+    <div>Ajouter parent</div>
+    
+    <button class="btn btn-outline-light  align-middle fs-5 " type="button" onclick="history.back()">
+        Retour
+    </button>
+</div>
+            
+           
 </x-header>
 
 

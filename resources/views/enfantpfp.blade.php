@@ -5,7 +5,7 @@
 </script>
  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<link rel="stylesheet" href="{{ asset('assets\css\navbar.css') }}">
+
 @include('components/navbar')
 
 
@@ -16,7 +16,7 @@
 </x-header>
 
 
-<div class="container-lg">
+<div class="container-lg bord">
     <div class="card-body ">
         <div class="row  ">
             <div class="col-6 col-md-3">
@@ -104,4 +104,3 @@
 
 
 
-{{-- {{ route('vaccinate', ['id' => $enfant->id, 'vaccine' => $vaccine]) }} --}}

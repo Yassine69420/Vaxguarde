@@ -17,8 +17,9 @@ class Infirmier extends Model
         'nom',
         'prenom',
         'Ville',
-        'date_de_naissance',
+        'date_naissance',
         'nom_Hopital',
+        'Email',
     ];
 
     public function hopital()

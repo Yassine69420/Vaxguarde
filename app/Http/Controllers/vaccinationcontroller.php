@@ -9,19 +9,18 @@ class vaccinationcontroller extends Controller
 {
     public function showVaccinationForm($id, $vaccine)
     {
-        return view('vaccination', compact('id', 'vaccine'));
+        $enfant = Enfant::find($id);
+        $today = date('Y-m-d');
+        return view('vaccination', compact('enfant', 'vaccine' , 'today'));
     }
 
-    public function showemptyForm()
-    {
-        return view('emptyvaccination');
-    }
+    
     public function submitVaccinationForm()
     {
 
         $id = request()->input('id');
         $vaccine = request()->input('vaccine');
-
+        $Date = request()->input('date');
 
         $enfant = Enfant::find($id);
 
@@ -29,12 +28,12 @@ class vaccinationcontroller extends Controller
 
             $vaccineField = "{$vaccine}";
             $enfant->$vaccineField = true;
-
+           
             $enfant->save();
 
 
             $vaccination = new Vaccination();
-            $vaccination->Date = now();
+            $vaccination->Date = $Date;
             $vaccination->INP_infirmier = session('INP');
             $vaccination->ID_enfant = $id;
             $vaccination->type_vaccination = $vaccine;

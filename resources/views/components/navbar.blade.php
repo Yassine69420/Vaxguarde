@@ -14,7 +14,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-lg">
             <img src="{{ asset('assets/images/logot.png') }}" alt="" class="logo">
-            <a class="navbar-brand align-middle" style="cursor: pointer" >Vaxguarde</a>
+            <a class="navbar-brand align-middle" style="cursor: pointer">Vaxguarde</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -31,9 +31,14 @@
                     <li class="nav-item align-middle">
                         <a class="nav-link m-2" href="/infirmier/Historique">Historique</a>
                     </li>
-                    <li class="nav-item align-middle">
-                        <a class="nav-link m-2" href="/infirmier/manuelDutulisation">Manuel d'utilisation</a>
-                    </li>
+                    @if (request()->session()->get('INP') == '111111')
+                        <li class="nav-item align-middle">
+                            <a class="nav-link m-2" href="/infirmier/Gestion">Gestion des infirmiers</a>
+                        </li>
+                    @endif
+                     <li class="nav-item align-middle">
+                            <a class="nav-link m-2" href="/infirmier/manuelDutulisation">Manuel d'utulisation</a>
+                        </li>
                 </ul>
                 <form action="{{ route('logout') }}" method="POST" class="form-inline my-2 my-lg-0">
                     @csrf

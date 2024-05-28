@@ -14,28 +14,47 @@ class EnfantController extends Controller
         $enfant = Enfant::find($id);
         return view('enfantpfp', ['enfant' => $enfant]);
     }
+    public function pf($CIN, $id)
+    {
+        // Retrieve the enfant by its ID
+        $enfant = Enfant::find($id);
+        
+        return view('Parentenfant', ['enfant' => $enfant]);
+    }
+
+
 
     #affichage de tous les enfants avec pagination de 10 , ou d'un seul enfant
     public function show_all()
-    {   
-        #preparer la requete 
+    {
+        # Initialize the query
         $enfants = Enfant::query();
-        #voir si la requete Post a le variable id d'enfant
-        if (request()->has('id')) {
-            #valider        
-            request()->validate([
-                'id' => ['required', 'max:8', 'min:2'],
-            ]);
-            #trouver l'enfant 
-            $enfants->where('id', request()->get('id'));
+
+        # Validate the inputs (both are nullable)
+        $search = request()->validate([
+            'id' => ['nullable', 'max:8', 'min:2'],
+            'nom' => ['nullable', 'string'],
+        ]);
+
+        # Apply the 'id' condition if provided
+        if (!empty($search['id'])) {
+            $enfants->where('id', $search['id']);
         }
-        #sinon afficher tous les enfants avec ordre descendant 
+
+        # Apply the 'nom' condition if provided
+        if (!empty($search['nom'])) {
+            $enfants->orWhere(Enfant::raw("CONCAT(nom, ' ', prenom)"), 'LIKE', "%" . $search['nom'] . "%");
+        }
+
+        # Order the results by 'created_at' in descending order
         $enfants->orderBy('created_at', 'desc');
-        #retourner la vue listeEnfant avec les variables ENfant 
+
+        # Return the view with paginated results
         return view('listeEnfants', [
             'enfants' => $enfants->paginate(10),
         ]);
     }
+
     # afficher la page de creation
     function show_create()
     {

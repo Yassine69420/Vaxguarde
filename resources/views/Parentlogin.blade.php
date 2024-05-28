@@ -3,7 +3,7 @@
 <div class="form-container">
 
     <img src="{{ asset('assets/images/MS-Maroc.png') }}" alt="MS-MAroc" />
-    <p class="title">Se Connecter</p>
+    <p class="title">Parent login</p>
     @if ($errors->any())
         <div class="error">
             <ul>

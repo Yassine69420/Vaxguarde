@@ -1,20 +1,37 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\EnfantController;
 use App\Http\Controllers\infirmierController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\vaccinationcontroller;
+use App\Models\Infirmier;
 use Illuminate\Support\Facades\Route;
 
 
 #main page
-Route::view('/', 'welcome');
+Route::get('/', function () {
+
+    session()->forget('INP');
+    session()->invalidate();
+    session()->regenerateToken();
+    return view('welcome');
+});
+
+
+Route::get('/register', [InfirmierController::class, "show_form"]);
+Route::Post('/register', [InfirmierController::class, "ajouter"]);
 
 
 Route::middleware(['admin'])->group(function () {
     #tous les enfants
-    Route::get('/infirmier/enfants', [EnfantController::class, "show_all"]);
+    
+    Route::get('/infirmier/enfants', [EnfantController::class, "show_all"])->name('show_all');
     Route::post('/infirmier/enfants', [EnfantController::class, 'show_all']);
+    #superAdmin
+    Route::get('/infirmier/Gestion', [InfirmierController::class, "show_nonAdmins"]);
+    Route::patch('/{INP}/makeadmin', [InfirmierController::class, 'makeadmin']);
+    Route::delete('/{INP}/delete', [InfirmierController::class, 'delete']);
     
     #un seul enfant
     Route::get("/infirmier/enfants/{id}", [EnfantController::class, "find"]);
@@ -31,7 +48,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/infirmier/vacciner/{id}/{vaccine}', [VaccinationController::class, 'showVaccinationForm'])->name('vaccinate');
     Route::patch('/infirmier/vacciner', [VaccinationController::class, 'submitVaccinationForm'])->name('submitVaccination');
     Route::get('/infirmier/Historique', [VaccinationController::class, 'showVaccinationHistory'])->name('vaccination.history');
-     
+
 
     #edit
     Route::get('infirmier/{INP}', [InfirmierController::class, 'showpfp'])->name('infirmier.dashboard');
@@ -46,6 +63,9 @@ Route::post('/adminlogin', [infirmierController::class, 'valider']);
 Route::post('/logout', [infirmierController::class, 'logout'])->name('logout');
 
 #login et logout pour Parent
-Route::get('/Parent/{CIN}', [ParentController::class, 'showparent'])->name('Parentpfp');;
 Route::get('/Parentlogin', [ParentController::class, 'Parentlogin'])->name('Parentlogin');
 Route::post('/Parentlogin', [ParentController::class, 'valider']);
+
+#parent page 
+Route::get('/Parent/{CIN}', [ParentController::class, 'showparent'])->name('Parentpfp');
+Route::get('/Parent/{CIN}/{id}', [EnfantController::class, 'pf']);

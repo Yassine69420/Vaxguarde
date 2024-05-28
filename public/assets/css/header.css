@@ -2,3 +2,20 @@
     background-color: #5DA9A2;
     color: white;
 }
+
+
+  .input-group {
+            margin-bottom: 15px;
+        }
+        .btn-custom {
+            background-color: #00796B;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .btn-custom:hover {
+            background-color: #004D40;
+        }

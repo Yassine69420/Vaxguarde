@@ -10,12 +10,11 @@ class ParentController extends Controller
 {
 
     function  view()
-    {
+    { 
         return view("createParent");
     }
     public function create()
     {
-        #valider
         $validatedData = request()->validate([
             'CIN' => ['required', 'max:255', 'min:4'],
             'nom' => ['required', 'max:255', 'min:3'],
@@ -24,31 +23,29 @@ class ParentController extends Controller
             'telephone' => ['required', 'max:255', 'min:3'],
             'Ville' => ['required'],
             'date_naissance' => ['required'],
-            'Email' => ['required', 'Email'],
+            'Email' => ['required', 'email'],
         ]);
 
-        #voir s'il existe
         $existingParent = ParentModel::where('CIN', $validatedData['CIN'])->first();
 
         if ($existingParent) {
-            #si oui , passer a la next page 
-            return redirect('/infirmier/createEnfant');
+            return redirect('/infirmier/createEnfant?CIN_Parent=' . $validatedData['CIN']);
         }
-        #si non creer 
+
         ParentModel::create([
             'CIN' => $validatedData['CIN'],
             'nom' => $validatedData['nom'],
             'prenom' => $validatedData['prenom'],
             'adress' => $validatedData['adress'],
             'telephone' => $validatedData['telephone'],
-            'Email' => request()->input('Email'),
+            'Email' => $validatedData['Email'],
             'ville' => $validatedData['Ville'],
             'date_naissance' => $validatedData['date_naissance'],
         ]);
 
-        #puis passer a la page suivante
-        return redirect('/infirmier/createEnfant');
+        return redirect('/infirmier/createEnfant?CIN_Parent=' . $validatedData['CIN']);
     }
+
 
     public function Parentlogin()
     {          #show view
