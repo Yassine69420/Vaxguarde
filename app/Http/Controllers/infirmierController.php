@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Adminmail;
 use App\Models\Infirmier;
-
+use Illuminate\Support\Facades\Mail;
 
 class infirmierController extends Controller
 {
@@ -48,10 +49,12 @@ class infirmierController extends Controller
         return view('Gestion', ['infirmiers' => $infirmiers->paginate(10)]);
     }
 
-    public function makeadmin($INP){
+    public function makeadmin($INP)
+    {
         $infirmier = Infirmier::find($INP);
-        $infirmier->isAdmin = true ;
+        $infirmier->isAdmin = true;
         $infirmier->save();
+        Mail::to($infirmier->Email)->send(new Adminmail($infirmier->nom, $infirmier->prenom));
         return redirect('/infirmier/Gestion');
     }
     public function update($INP)
