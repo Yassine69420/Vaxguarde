@@ -141,10 +141,12 @@ class infirmierController extends Controller
     public function logout()
     {
         #remove session  
-        session()->forget('INP');
-        session()->invalidate();
-        session()->regenerateToken();
-        #etourner au login
-        return redirect('/adminlogin');
+    if(request()->session()->has('INP')){
+            session()->forget('INP');
+            session()->invalidate();
+            session()->regenerateToken();
+    }
+      
+        return redirect('/');
     }
 }

@@ -780,7 +780,7 @@
                                       ">
                                                                         Nous avons le plaisir de vous informer que
                                                                         votre demande pour devenir
-                                                                        infirmier/infirmière a été acceptée avec
+                                                                        Admin a été acceptée avec
                                                                         succès.
                                                                     </p>
                                                                     <p

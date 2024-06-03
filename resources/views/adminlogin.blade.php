@@ -1,28 +1,55 @@
 <link rel="stylesheet" href="{{ asset('assets\css\login.css') }}">
- <meta name="viewport" content="width=device-width, initial-scale=1" />
-<div class="form-container">
-  
-   <img src="{{ asset('assets/images/MS-Maroc.png') }}" alt="MS-MAroc" />
-    <p class="title">Se Connecter</p> 
-      @if ($errors->any())
-        <div class="error">
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
+    <section>
+      <div class="imagebx">
+        <img src="https://img.freepik.com/free-photo/successful-medical-team_329181-9252.jpg?t=st=1717442936~exp=1717446536~hmac=8daf334cd7f05f4e22659058699ef70aabbd6677145010cf21332e31b8bf6cb1&w=996" alt="Background Image" />
+      </div>
+      <div class="contentbx">
+        <div class="formbx">
+          <div class="logo-cnt">
+            <img class="logo" src="{{ asset('assets\images/MS-Maroc.png') }}" />
+          </div>
+          <div class="title">
+            <h2>Se Connecter</h2>
+          </div>
+           @if ($errors->any())
+        <div class="error ">
             <ul>
                 @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
+                    <p>{{ $error }}</p>
                 @endforeach
             </ul>
+            </div>
+            @endif
+          <form method="POST" action="{{ route('adminlogin') }}">
+            @csrf
+            <div class="inputbx">
+              <span>INP :</span>
+              <input type="text" name="INP" value="{{ old('INP') }}" placeholder="INP"  />
+            </div>
+            <div class="inputbx mg">
+              <span>Date De Naissance :</span>
+              <input type="date"  value="{{ old('date') }}"  name="date"  />
+            </div>
+            <div class="inputbx">
+              <input type="submit"  class="btn" value="Se Connecter" />
+            </div>
+          
+          </form>
+          
         </div>
-      @endif 
-    <form class="form" id="loginForm" method="POST" action="{{ route('adminlogin') }}">
-    @csrf
-    <div class="input-group">
-        <label for="INP" id="cinLabel">INP</label>
-        <input type="text" name="INP" id="INP" placeholder="Entez votre INP">
-    </div>
-    <div class="input-group">
-        <label for="date" id="dateLabel">Date de naissance</label>
-        <input type="date" name="date" id="date" placeholder="Entez votre date de naissance">
-    </div>
-    <button type="submit" class="sign">Valider</button>
-</form>
-
+        <div class="register">
+               <p>si vous n'etes pas infirmier encore vous pouver  <a href="/register">Postuler ici</a></p>
+          </div>
+      </div>
+    </section>
+  </body>
+</html>

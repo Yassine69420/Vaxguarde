@@ -4,7 +4,7 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
 </script>
  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+<link rel="stylesheet" href="{{ asset('assets\css\pfp.css') }}">
 
 @include('components.navbar')
 <x-header>Profile Edit</x-header>
@@ -18,6 +18,10 @@
         width: 100%;
     }
 </style>
+<div class=" mt-4  background-container">
+        <img src="{{ asset('assets\images\pfp.png') }}" id="profile-picture" alt="Centered Image" class="center-image">
+    </div>
+    
 <form action="/infirmier/{{ $infirmier->INP }}/edit/validate" method="POST">
     @csrf
     @method('PATCH')
@@ -62,3 +66,20 @@
             </div>
         </div>
 </form>
+
+
+
+<script>
+    // script.js
+document.getElementById('upload').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('profile-picture').src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+</script>

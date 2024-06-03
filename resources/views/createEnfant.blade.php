@@ -17,7 +17,7 @@
 
 @include('components/navbar')
 
-<x-header>
+<x-header class="w-100" >
 
     <div class="d-flex justify-content-between">
 

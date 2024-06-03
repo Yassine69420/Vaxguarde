@@ -31,3 +31,7 @@ tr {
     cursor: pointer;
 }
 
+
+.date{
+    color: hsl(43, 74%, 40%);
+}
