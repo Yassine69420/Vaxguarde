@@ -1,18 +1,18 @@
 <?php
 
-use App\Http\Controllers\Controller;
+
 use App\Http\Controllers\EnfantController;
 use App\Http\Controllers\infirmierController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\vaccinationcontroller;
-use App\Models\Infirmier;
+
 use Illuminate\Support\Facades\Route;
 
 
 #main page
 Route::get('/', function () {
-
     session()->forget('INP');
+    session()->forget('CIN');
     session()->invalidate();
     session()->regenerateToken();
     return view('welcome');
@@ -55,7 +55,13 @@ Route::middleware(['admin'])->group(function () {
     Route::get('infirmier/{INP}/edit', [InfirmierController::class, 'find']);
     Route::patch('infirmier/{INP}/edit/validate', [InfirmierController::class, 'update']);
 });
-
+#parent page 
+Route::middleware(['Parent'])->group(function () {
+    Route::get('/Parent/{CIN}', [ParentController::class, 'showparent'])->name('Parentpfp');
+    Route::get('/Parent/{CIN}/edit', [ParentController::class, 'editform']);
+    Route::get('/Parent/{CIN}/{id}', [EnfantController::class, 'pf']);
+    Route::patch('/edit/{CIN}', [ParentController::class, 'update']);
+});
 
 #login et logout Infirmier
 Route::get('/adminlogin', [infirmierController::class, 'adminlogin'])->name('adminlogin');
@@ -65,7 +71,3 @@ Route::post('/logout', [infirmierController::class, 'logout'])->name('logout');
 #login et logout pour Parent
 Route::get('/Parentlogin', [ParentController::class, 'Parentlogin'])->name('Parentlogin');
 Route::post('/Parentlogin', [ParentController::class, 'valider']);
-
-#parent page 
-Route::get('/Parent/{CIN}', [ParentController::class, 'showparent'])->name('Parentpfp');
-Route::get('/Parent/{CIN}/{id}', [EnfantController::class, 'pf']);

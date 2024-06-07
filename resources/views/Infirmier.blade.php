@@ -9,15 +9,7 @@
 @include('components.navbar')
 <x-header>Profile Edit</x-header>
 
-<style>
-    .secondcol {
-        margin-top: 30px
-    }
 
-    .row3 {
-        width: 100%;
-    }
-</style>
 <div class=" mt-4  background-container">
         <img src="{{ asset('assets\images\pfp.png') }}" id="profile-picture" alt="Centered Image" class="center-image">
     </div>

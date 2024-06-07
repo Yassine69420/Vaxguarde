@@ -5,6 +5,10 @@ body, html {
     height: 100%;
 }
 
+ .small-email {
+        font-size: 0.8em; /* Reduce the font size */
+        word-wrap: break-word; /* Ensure long words break to the next line */
+    }
 
 .background-container {
     position: relative;
@@ -29,3 +33,64 @@ body, html {
     transform: translate(-50%, 40%);
     border: 5px solid white; /* Optional: Add a border to make the profile picture stand out */
 }
+
+
+        .profile-container {
+            text-align: center;
+            margin-top: 20px;
+            position: relative;
+        }
+        .bg-image {
+            background-image: url('https://www.aamc.org/sites/default/files/covid-vaccine-syringe-1297565599.jpg');
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            position: absolute;
+            bottom: -75px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .parent-info {
+            margin-top: 100px;
+            text-align: center;
+            padding-top: 80px; /* Added padding to create space for the profile picture */
+        }
+        .parent-info .info-item {
+            display: flex;
+            justify-content: center;
+            margin-top: 5px;
+        }
+        .parent-info .info-item strong {
+            margin-right: 5px;
+        }
+        .parent-info strong {
+            display: block;
+        }
+        .kids-info {
+            margin-top: 50px;
+        }
+        .kids-info table {
+            width: 100%;
+        }
+        .kids-info th, .kids-info td {
+            text-align: left;
+            padding: 8px;
+        }
+        .kids-info th {
+            background-color: #f2f2f2;
+        }
+        .kids-info tr:hover {
+            background-color: #f1f1f1;
+        }
+        .btn-edit {
+            display: inline-block;
+            margin-top: 20px;
+        }

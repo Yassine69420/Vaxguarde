@@ -10,7 +10,7 @@ class ParentController extends Controller
 {
 
     function  view()
-    { 
+    {
         return view("createParent");
     }
     public function create()
@@ -47,8 +47,41 @@ class ParentController extends Controller
     }
 
 
+    function update($CIN)
+    {
+        request()->validate([
+            'Email' => 'required|email',
+            'telephone' => 'required',
+            'adress' => 'required',
+            'Ville' => 'required',
+        ]);
+
+        $parent = ParentModel::find($CIN);
+        $parent->update([
+            'Email' => request()->input('Email'),
+            'telephone' => request()->input('telephone'),
+            'adress' => request()->input('adress'),
+            'Ville' => request()->input('Ville'),
+        ]);
+        $parent->save();
+
+        return redirect("/Parent/$CIN");
+    }
+    public function editform($CIN)
+    {          #show view
+        $parent = ParentModel::where('CIN', $CIN)->first();
+
+        return view('editform', [
+            'parent' => $parent,
+
+        ]);
+    }
+
     public function Parentlogin()
     {          #show view
+        session()->forget('CIN');
+        session()->invalidate();
+        session()->regenerateToken();
         return view('Parentlogin');
     }
 

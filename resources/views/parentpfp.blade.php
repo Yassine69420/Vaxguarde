@@ -1,106 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="width: 100%;">
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{{ asset('assets\css\parent.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Parent and Kids Information</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('assets\css\pfp.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\css\navbar.css') }}">
+
 </head>
 
-<body  >
-    <div class="profile-page " >
-        <div class="content mt-5 mb-4 h-75 ">
-            <div class="content__cover">
-                <div class="content__avatar"></div>
-                <div class="content__bull">
-                    <span></span><span></span><span></span><span></span><span></span>
+<body>
+    <div class="container pb-5">
+        <div style="flex-direction: row;"
+            class="container bord card body-card p-3 my-4 d-flex justify-content-between align-items-center rounded">
+            <img class="logo" height="60" src="{{ asset('assets\images\logot.png') }}" alt=""
+                srcset="">
+            <a class="nav-link" onclick="history.back()">
+                <button class="btn btn-success">Retour</button>
+            </a>
+        </div>
+        <!-- Profile and Parent Info Section -->
+        <div class="profile-container">
+            <div class="bg-image">
+                <img src="{{ asset('assets\images\family.png') }}" alt="Profile Picture" class="profile-img">
+            </div>
+            
+                <div class="card-body  mt-4 ">
+                    <div class="card-body bord">
+                        <div class="row">
+                            <div class="col-6 col-md-4">
+                                <small>NOM</small> <br>
+                                <strong>{{ $parent->nom }} {{ $parent->prenom }}</strong> <br>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <small>Ville:</small> <br>
+                                <strong>{{ $parent->Ville }} - Maroc</strong> <br>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <small>CIN:</small> <br>
+                                <strong>{{ $parent->CIN }}</strong> <br>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <small>EMAIL:</small> <br>
+                                <strong class="small-email">{{ $parent->Email }}</strong> <br>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <small>Telephone:</small> <br>
+                                <strong>{{ $parent->telephone }}</strong> <br>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <small>ADRESSE:</small> <br>
+                                <strong>{{ $parent->adress }}</strong> <br>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-            </div>
-            <div class="content__actions mb-5">
-
-            </div>
-            <div class="content__title">
-                <h1>{{ $parent->nom }} {{ $parent->prenom }} </h1>
-                <span>{{ $parent->Ville }} - Maroc </span>
-            </div>
-            <div class="content__description">
-                <table class="table text-start m-0">
-                    <tbody>
-                        <tr>
-                            <th scope="row">CIN &nbsp;:</th>
-                            <td>{{ $parent->CIN }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Email :</th>
-                            <td>{{ $parent->Email }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Adresse :</th>
-                            <td>{{ $parent->adress }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-
-            <div class="content__button m-4">
-                <a href="" class="btn btn-primary">Edit</a>
-            </div>
-
-        </div>
-        <div class="bg">
-            <div>
-
-                <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-            </div>
-
+            
         </div>
 
-    </div>
-    <div class="container" >
-        <table class="table  mb-5 table-hover table-striped ">
-            <thead  class="table-success" >
-                <tr >
-                    <th scope="col">ID</th>
-                    <th scope="col">Nom</th>
-                    <th scope="col">age</th>
+        <!-- Table of Kids' Information -->
+        <div class="kids-info mt-5">
 
-                </tr>
-            </thead>
-            <tbody>
-
-                @foreach ($enfants as $enfant)
-                    <?php
-                    $datenaissance = new DateTime($enfant->date_naissance);
-                    $Datetoday = new DateTime();
-                    
-                    $ageInterval = $datenaissance->diff($Datetoday);
-                    
-                    if ($ageInterval->y < 2) {
-                        $age = $ageInterval->m + $ageInterval->y * 12; // Convert years to months and add
-                        $ageLabel = 'moi' . ($age != 1 ? 's' : '');
-                    } else {
-                        $age = $ageInterval->y * 12 + $ageInterval->m; // Convert age to total months
-                        $ageLabel = 'moi' . ($age != 1 ? 's' : ''); // Keep it as months for consistency
-                    }
-                    ?>
-                    <tr scope="row" style="cursor: pointer"  onclick="window.location='/Parent/{{ $parent->CIN }}/{{ $enfant->id }}'">
-                        <td ><strong> {{ $enfant->id }}</strong></td>
-                        <td>{{ $enfant->nom }} {{ $enfant->prenom }}</td>
-                        <td>{{ $age }} {{ $ageLabel }} </td>
-
+            <table class="table  ">
+                <thead class="thead-dark">
+                    <tr>
+                        <th colspan="4" class="text-center fs-3">Enfants</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Age</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($enfants as $enfant)
+                        <?php
+                        $datenaissance = new DateTime($enfant->date_naissance);
+                        $Datetoday = new DateTime();
+                        
+                        $ageInterval = $datenaissance->diff($Datetoday);
+                        
+                        if ($ageInterval->y < 2) {
+                            $age = $ageInterval->m + $ageInterval->y * 12; // Convert years to months and add
+                            $ageLabel = 'mois';
+                        } else {
+                            $age = $ageInterval->y * 12 + $ageInterval->m; // Convert age to total months
+                            $ageLabel = 'mois'; // Keep it as months for consistency
+                        }
+                        ?>
+                        <tr onclick="window.location='/Parent/{{ $parent->CIN }}/{{ $enfant->id }}'"
+                            style="cursor: pointer;">
+                            <td><strong>{{ $enfant->id }}</strong></td>
+                            <td>{{ $enfant->nom }} {{ $enfant->prenom }}</td>
+                            <td>{{ $age }} {{ $ageLabel }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

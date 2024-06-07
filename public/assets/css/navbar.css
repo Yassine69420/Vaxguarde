@@ -3,6 +3,13 @@
     margin-right: 10px;
 }
 
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
 .navbar-brand {
     font-size: 1.7rem;
 }
@@ -31,7 +38,13 @@ tr {
     cursor: pointer;
 }
 
-
-.date{
+.date {
     color: hsl(43, 74%, 40%);
+}
+
+.secondcol {
+    margin-top: 30px;
+}
+.row3 {
+    width: 100%;
 }
