@@ -58,8 +58,8 @@ class infirmierController extends Controller
 
     public function show_nonAdmins()
     {
-        # Initialize the query
-        $infirmiers = Infirmier::query();
+        # Initialize the query, excluding the Infirmier with INP '111111'
+        $infirmiers = Infirmier::where('INP', '!=', '111111');
 
         # Validate the inputs (INP is nullable)
         $search = request()->validate([
@@ -82,6 +82,7 @@ class infirmierController extends Controller
             'infirmiers' => $infirmiers->paginate(10),
         ]);
     }
+
 
 
     public function toggleAdmin($INP)
