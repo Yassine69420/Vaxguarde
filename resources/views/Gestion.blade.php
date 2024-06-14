@@ -11,6 +11,7 @@
 
     @include('components/navbar')
     <x-header>Requests</x-header>
+
     @if ($errors->any())
         <div class="alert alert-danger alert-dismissible fade show">
             <ul>
@@ -22,6 +23,23 @@
     @endif
     <div class="container-lg">
 
+        <form id="searchForm" action="{{ url('/infirmier/Gestion') }}" method="GET">
+            @csrf
+            <div class="input-group w-75 mt-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">INP</span>
+                </div>
+                <input type="search" name="INP" class="form-control " placeholder="INP d'Infirmier"
+                    aria-label="MX293234" aria-describedby="basic-addon1">
+                <button type="submit" class="btn btn-outline-success mr-5">Trouver</button>
+                <div class="input-group-prepend">
+                    <span class="input-group-text">nom</span>
+                </div>
+                <input type="search" name="nom" class="form-control m" placeholder="nom d'Infirmier"
+                    aria-label="MX293234" aria-describedby="basic-addon1">
+                <button type="submit" class="btn btn-outline-success">Trouver</button>
+            </div>
+        </form>
         <div class="row">
             <div class="col-md-12">
                 <div class="row ">
@@ -39,30 +57,32 @@
                         <tbody>
 
                             @foreach ($infirmiers as $infirmier)
-                                <tr onclick="window.location='/infirmier/enfants/{{ $infirmier->id }}'">
+                                <tr>
                                     <td class="fs-5 align-middle">{{ $infirmier->INP }}</td>
                                     <td class="fs-5 align-middle">{{ $infirmier->nom }}</td>
                                     <td class="fs-5 align-middle">{{ $infirmier->prenom }}</td>
-                                    <td class="fs-5 align-middle">{{ $infirmier->date_naissance }}</td>
+                                    <td class="fs-5 align-middle">{{ $infirmier->nom_Hopital }}</td>
                                     <td>
-
-
-
-
-                                        <button form="update" class="btn fs-5 btn-success">Autoriser</button>
-                                        <button form="delete" class="btn fs-5 btn-danger">Supprimer</button>
-
+                                        <form id="update-{{ $infirmier->INP }}"
+                                            action="/{{ $infirmier->INP }}/makeadmin" method="POST"
+                                            style="display:inline;">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit"
+                                                class="btn w-9 fs-5 {{ $infirmier->isAdmin ? 'btn-info' : 'btn-success' }}">
+                                                {{ $infirmier->isAdmin ? 'Prohiber' : 'Autoriser' }}
+                                            </button>
+                                        </form>
+                                        <form id="delete-{{ $infirmier->INP }}" action="/{{ $infirmier->INP }}/delete"
+                                            method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn fs-5 btn-danger">Supprimer</button>
+                                        </form>
                                     </td>
                                 </tr>
-                                <form id="update" action="/{{ $infirmier->INP }}/makeadmin" method="POST">
-                                    @csrf
-                                    @method('PATCH')
-                                </form>
-                                <form id="delete" action="/{{ $infirmier->INP }}/delete" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
                             @endforeach
+
                         </tbody>
                     </table>
                     <div>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Enfant;
-
+use App\Models\Vaccination;
 
 class EnfantController extends Controller
 {
@@ -18,8 +18,11 @@ class EnfantController extends Controller
     {
         // Retrieve the enfant by its ID
         $enfant = Enfant::find($id);
-        
-        return view('Parentenfant', ['enfant' => $enfant]);
+
+        // Retrieve vaccinations for the enfant
+        $vaccinations = Vaccination::where('ID_enfant', $id)->get();
+
+        return view('Parentenfant', ['enfant' => $enfant, 'vaccinations' => $vaccinations]);
     }
 
 

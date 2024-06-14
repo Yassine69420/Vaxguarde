@@ -9,10 +9,9 @@
 @include('components.navbar')
 <x-header>
     <div class="d-flex justify-content-between">
-        <div>ajouter Enfant</div>
+        <div>Profile</div>
         <a class="btn btn-outline-light align-middle fs-5 " href="/infirmier/{{ $infirmier->INP }}/edit" type="button">
             Edit
-
         </a>
     </div>
 </x-header>

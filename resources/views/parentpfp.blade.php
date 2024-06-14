@@ -19,7 +19,7 @@
             <img class="logo" height="60" src="{{ asset('assets\images\logot.png') }}" alt=""
                 srcset="">
             <a class="nav-link" onclick="history.back()">
-                <button class="btn btn-success">Retour</button>
+                <button class="btn btn-danger">Quitter</button>
             </a>
         </div>
         <!-- Profile and Parent Info Section -->

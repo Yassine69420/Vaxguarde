@@ -1,16 +1,16 @@
-<link rel="stylesheet" href="{{ asset('assets\css\login.css') }}">
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Form</title>
-    <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="{{ asset('assets\css\login.css') }}">
+    
   </head>
   <body>
     <section>
       <div class="imagebx">
-        <img src="https://img.freepik.com/free-photo/successful-medical-team_329181-9252.jpg?t=st=1717442936~exp=1717446536~hmac=8daf334cd7f05f4e22659058699ef70aabbd6677145010cf21332e31b8bf6cb1&w=996" alt="Background Image" />
+        <img src="{{ asset('assets\images\nurses.jpg')}}" alt="nurses image" />
       </div>
       <div class="contentbx">
         <div class="formbx">
@@ -44,11 +44,11 @@
             </div>
           
           </form>
-          
-        </div>
-        <div class="register">
-               <p>si vous n'etes pas infirmier encore vous pouver  <a href="/register">Postuler ici</a></p>
+          <div class="register">
+               <p>si vous n'etes pas infirmier encore vous pouver  <a class="link" href="/register">Postuler ici</a></p>
           </div>
+        </div>
+        
       </div>
     </section>
   </body>

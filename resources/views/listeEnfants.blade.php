@@ -26,15 +26,6 @@
                 </div>
             </div>
         </x-header>
-        @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
         <div class="container-lg">
             <form id="searchForm" action="{{ url('/infirmier/enfants') }}" method="GET">
                 @csrf

@@ -8,18 +8,29 @@ use Illuminate\Support\Facades\Mail;
 
 class infirmierController extends Controller
 {
-     function ajouter(){
+
+
+    function welcome()
+    {
+        session()->forget('INP');
+        session()->forget('CIN');
+        session()->invalidate();
+        session()->regenerateToken();
+        return view('welcome');
+    }
+    function ajouter()
+    {
         $validatedData = request()->validate([
             'nom' => ['required', 'max:255', 'min:3'],
             'prenom' => ['required', 'max:255', 'min:3'],
             'CIN' => ['required', 'max:255', 'min:4'],
             'INP' => ['required', 'max:255', 'min:3'],
             'Ville' => ['required', 'max:255', 'min:3'],
-            'date_naissance' => ['required','date'],
+            'date_naissance' => ['required', 'date'],
             'nom_Hopital' => ['required', 'max:255', 'min:3'],
             'email' => ['required', 'Email'],
         ]);
-        
+
         Infirmier::create([
             'CIN' => $validatedData['CIN'],
             'INP' => $validatedData['INP'],
@@ -32,31 +43,63 @@ class infirmierController extends Controller
         ]);
 
         return redirect('/');
-     }
-    function show_form(){
+    }
+    function show_form()
+    {
         return view('form');
     }
     function delete($INP)
     {
         $infirmier = Infirmier::findorfail($INP);
-        $infirmier->delete();
-        return redirect("/infirmier/Gestion");
-    }
-    
-    public function show_nonAdmins()
-    {
-        $infirmiers = Infirmier::where('isAdmin', false);
-        return view('Gestion', ['infirmiers' => $infirmiers->paginate(10)]);
+        dd($infirmier);
+        // $infirmier->delete();
+        // return redirect("/infirmier/Gestion");
     }
 
-    public function makeadmin($INP)
+    public function show_nonAdmins()
+    {
+        # Initialize the query
+        $infirmiers = Infirmier::query();
+
+        # Validate the inputs (INP is nullable)
+        $search = request()->validate([
+            'INP' => ['nullable', 'max:8', 'min:2'],
+            'nom' => ['nullable', 'string'],
+        ]);
+
+        # Apply the 'INP' condition if provided
+        if (!empty($search['INP'])) {
+            $infirmiers->where('INP', $search['INP']);
+        }
+
+        # Apply the 'nom' condition if provided
+        if (!empty($search['nom'])) {
+            $infirmiers->orWhere(Infirmier::raw("CONCAT(nom, ' ', prenom)"), 'LIKE', "%" . $search['nom'] . "%");
+        }
+
+        # Return the view with paginated results
+        return view('Gestion', [
+            'infirmiers' => $infirmiers->paginate(10),
+        ]);
+    }
+
+
+    public function toggleAdmin($INP)
     {
         $infirmier = Infirmier::find($INP);
-        $infirmier->isAdmin = true;
-        $infirmier->save();
-        Mail::to($infirmier->Email)->send(new Adminmail($infirmier->nom, $infirmier->prenom));
+
+        if ($infirmier) {
+            $infirmier->isAdmin = !$infirmier->isAdmin;
+            $infirmier->save();
+
+            if ($infirmier->isAdmin) {
+                Mail::to($infirmier->Email)->send(new Adminmail($infirmier->nom, $infirmier->prenom));
+            }
+        }
+
         return redirect('/infirmier/Gestion');
     }
+
     public function update($INP)
     {
         #valider
@@ -141,12 +184,12 @@ class infirmierController extends Controller
     public function logout()
     {
         #remove session  
-    if(request()->session()->has('INP')){
+        if (request()->session()->has('INP')) {
             session()->forget('INP');
             session()->invalidate();
             session()->regenerateToken();
-    }
-      
+        }
+
         return redirect('/');
     }
 }
