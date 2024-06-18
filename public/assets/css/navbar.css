@@ -3,6 +3,21 @@
     margin-right: 10px;
 }
 
+.nav-link.active {
+         
+            color: black !important;
+        }
+ .nav-link {
+            font-size: 1.4rem;
+        }
+
+        @media (max-width: 1420px) {
+            .nav-link {
+                font-size: 1rem;
+                padding: 0  !important;
+            }
+        }
+       
 body,
 html {
     margin: 0;
@@ -21,10 +36,6 @@ tr {
     cursor: pointer;
 }
 
-.active {
-    color: black !important;
-    background-color: rgb(214, 232, 222) !important;
-}
 
 .bord {
     border: 1px #5da9a2 solid;

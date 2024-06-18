@@ -21,13 +21,13 @@ class infirmierController extends Controller
     function ajouter()
     {
         $validatedData = request()->validate([
-            'nom' => ['required', 'max:255', 'min:3'],
-            'prenom' => ['required', 'max:255', 'min:3'],
-            'CIN' => ['required', 'max:255', 'min:4'],
+            'nom' => ['required', 'max:255', 'min:3', 'string'],
+            'prenom' => ['required', 'max:255', 'min:3', 'string'],
+            'CIN' => ['required', 'max:255', 'min:4', 'string'],
             'INP' => ['required', 'max:255', 'min:3'],
-            'Ville' => ['required', 'max:255', 'min:3'],
+            'Ville' => ['required', 'max:255', 'min:3', 'string'],
             'date_naissance' => ['required', 'date'],
-            'nom_Hopital' => ['required', 'max:255', 'min:3'],
+            'nom_Hopital' => ['required', 'max:255', 'min:3', 'string'],
             'email' => ['required', 'Email'],
         ]);
 

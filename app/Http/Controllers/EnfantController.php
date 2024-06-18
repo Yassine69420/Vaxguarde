@@ -35,7 +35,7 @@ class EnfantController extends Controller
 
         # Validate the inputs (both are nullable)
         $search = request()->validate([
-            'id' => ['nullable', 'max:8', 'min:2'],
+            'id' => ['nullable', 'max:8', 'min:2', 'string'],
             'nom' => ['nullable', 'string'],
         ]);
 
@@ -76,9 +76,9 @@ class EnfantController extends Controller
         #valider
         $validatedData = request()->validate([
             'CIN_Parent' => ['required', 'max:255', 'min:4'],
-            'nom' => ['required', 'max:255', 'min:3'],
-            'prenom' => ['required', 'max:255', 'min:3'],
-            'date_naissance' => ['required'],
+            'nom' => ['required', 'max:255', 'min:1', 'string'],
+            'prenom' => ['required', 'max:255', 'min:3', 'string'],
+            'date_naissance' => ['required','date'],
         ]);
         #generer id 
         $enfantId = $this->generateUniqueEnfantId();
@@ -94,7 +94,7 @@ class EnfantController extends Controller
         return redirect('/infirmier/enfants');
     }
 
-    #methode pour generer 
+    #methode pour generer un ID unique
     private function generateUniqueEnfantId()
     {
         #  gener un id de deux lettres et 6 chiffres , 

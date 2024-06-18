@@ -16,13 +16,13 @@ class ParentController extends Controller
     public function create()
     {
         $validatedData = request()->validate([
-            'CIN' => ['required', 'max:255', 'min:4'],
+            'CIN' => ['required', 'max:255', 'min:4', 'string'],
             'nom' => ['required', 'max:255', 'min:3'],
-            'prenom' => ['required', 'max:255', 'min:3'],
-            'adress' => ['required', 'max:255', 'min:3'],
+            'prenom' => ['required', 'max:255', 'min:3', 'string'],
+            'adress' => ['required', 'max:255', 'min:3', 'string'],
             'telephone' => ['required', 'max:255', 'min:3'],
-            'Ville' => ['required'],
-            'date_naissance' => ['required'],
+            'Ville' => ['required', 'string'],
+            'date_naissance' => ['required','date'],
             'Email' => ['required', 'email'],
         ]);
 
