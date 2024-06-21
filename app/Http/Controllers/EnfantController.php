@@ -66,7 +66,8 @@ class EnfantController extends Controller
     # delete enfant
     function delete($id)
     {
-        $enfant = Enfant::findorfail($id);
+        $enfant = Enfant::find($id);
+        // dd($enfant);
         $enfant->delete();
         return redirect("/infirmier/enfants");
     }
@@ -78,7 +79,7 @@ class EnfantController extends Controller
             'CIN_Parent' => ['required', 'max:255', 'min:4'],
             'nom' => ['required', 'max:255', 'min:1', 'string'],
             'prenom' => ['required', 'max:255', 'min:3', 'string'],
-            'date_naissance' => ['required','date'],
+            'date_naissance' => ['required', 'date'],
         ]);
         #generer id 
         $enfantId = $this->generateUniqueEnfantId();
@@ -111,25 +112,4 @@ class EnfantController extends Controller
     }
 
 
-    public function findsingle()
-    {
-        // Validate the request input
-        $validatedData = request()->validate([
-            'ID' => ['required', 'max:255', 'min:4']
-        ]);
-
-        // Find the enfant by ID
-        $enfant = Enfant::find($validatedData['ID']);
-
-        // Check if enfant is found
-        if ($enfant) {
-            // Return the view with the found enfant
-            return view('listeEnfants', ['enfants' => [$enfant]]);
-        } else {
-            // Return the view with all enfants if the specific one is not found
-            $enfants = Enfant::all();
-            return view('listeEnfants', ['enfants' => $enfants])
-                ->with('error', 'Enfant not found, displaying all enfants.');
-        }
-    }
 }

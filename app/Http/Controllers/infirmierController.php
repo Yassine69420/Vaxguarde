@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\Adminmail;
 use App\Models\Infirmier;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class infirmierController extends Controller
 {
@@ -48,14 +49,13 @@ class infirmierController extends Controller
     {
         return view('form');
     }
-    function delete($INP)
+    public function supprimer($INP)
     {
-        $infirmier = Infirmier::findorfail($INP);
-        dd($infirmier);
-        // $infirmier->delete();
-        // return redirect("/infirmier/Gestion");
+        $infirmier = Infirmier::findOrFail($INP);
+        // dd($infirmier);
+        $infirmier->delete();
+        return redirect("/infirmier/Gestion");
     }
-
     public function show_nonAdmins()
     {
         # Initialize the query, excluding the Infirmier with INP '111111'
@@ -103,30 +103,46 @@ class infirmierController extends Controller
 
     public function update($INP)
     {
-        #valider
+        // Validate request data
         request()->validate([
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'Ville' => 'required|string|max:255',
             'nom_Hopital' => 'required|string|max:255',
+            'pfp' => 'image|mimes:jpeg,png,jpg,gif|max:2048' // Validate pfp as image file
         ]);
-        #trouver
-        $infirmier = Infirmier::find($INP);
-        #modifier
-        if ($infirmier) {
 
+        // Find the infirmier
+        $infirmier = Infirmier::find($INP);
+
+        // If infirmier found, update fields
+        if ($infirmier) {
             $infirmier->nom = request('nom');
             $infirmier->prenom = request('prenom');
             $infirmier->Ville = request('Ville');
             $infirmier->nom_Hopital = request('nom_Hopital');
 
-            #sauvegarder
+            // Handle profile picture upload
+            if (request()->hasFile('pfp')) {
+                // Delete existing profile picture if it exists
+                if ($infirmier->pfp) {
+                    Storage::delete('public/' . $infirmier->pfp);
+                }
+
+                // Store new profile picture
+                $image = request()->file('pfp');
+                $imageName = $INP . '.' . $image->getClientOriginalExtension();
+                $path = $image->storeAs('public/profile_pics/', $imageName);
+                $infirmier->pfp = '/storage/profile_pics/' . $imageName; // Store relative path to database
+            }
+
+            // Save changes
             $infirmier->save();
 
-
+            // Redirect to infirmier detail page
             return redirect("/infirmier/$INP");
         } else {
-            #afficher erreur 
+            // If infirmier not found, show 404 error
             abort(404);
         }
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Enfant;
 use App\Models\Vaccination;
 
@@ -49,10 +50,10 @@ class vaccinationcontroller extends Controller
 
     public function showVaccinationHistory()
     {
+        $vaccinations = Vaccination::orderBy('Date', 'desc')->paginate(10);
 
-        $vaccinations = Vaccination::orderBy('Date', 'desc')->get();
-
-
-        return view('history', ['vaccinations' => $vaccinations]);
+        return view('history', [
+            'vaccinations' => $vaccinations,
+        ]);
     }
 }

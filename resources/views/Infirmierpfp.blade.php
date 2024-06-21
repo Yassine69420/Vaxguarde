@@ -15,9 +15,16 @@
         </a>
     </div>
 </x-header>
-<div class=" mt-1  background-container">
-    <img src="{{ asset('assets\images\pfp.png') }}" alt="Centered Image" class="center-image">
-</div>
+@if ($infirmier->pfp)
+    <div class="mt-1 background-container">
+        <img src="{{ asset($infirmier->pfp) }}" alt="Profile Picture" class="pfpimage">
+    </div>
+@else
+    <div class=" mt-1  background-container">
+        <img src="{{ asset('assets\images\pfp.png') }}" alt="Centered Image" class="center-image">
+    </div>
+@endif
+
 <div class="card mt-3 p-5">
     <div class="container-lg">
         <div class="row">

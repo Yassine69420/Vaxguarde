@@ -18,6 +18,7 @@ class CreateInfirmiersTable extends Migration
             $table->string('nom_Hopital');
             $table->string('Email');
             $table->boolean('isAdmin')->default(false);
+            $table->string('pfp')->nullable(); // Add pfp column (nullable for now)
         });
     }
 

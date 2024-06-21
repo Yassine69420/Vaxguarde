@@ -22,10 +22,11 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('/infirmier/enfants', [EnfantController::class, "show_all"])->name('show_all');
     Route::post('/infirmier/enfants', [EnfantController::class, 'show_all']);
+
     #superAdmin
     Route::get('/infirmier/Gestion', [InfirmierController::class, "show_nonAdmins"]);
     Route::patch('/{INP}/makeadmin', [InfirmierController::class, 'toggleAdmin']);
-    Route::delete('/{INP}/delete', [InfirmierController::class, 'delete']);
+    Route::delete('/{INP}/supprimer', [InfirmierController::class, 'supprimer'])->name('infirmier.supprimer');
 
     #un seul enfant
     Route::get("/infirmier/enfants/{id}", [EnfantController::class, "find"]);
@@ -33,6 +34,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/infirmier/createEnfant', [EnfantController::class, 'show_create']);
     Route::post('/infirmier/createEnfant/validation', [EnfantController::class, 'create']);
     Route::delete("{id}/delete", [EnfantController::class, 'delete']);
+   
 
     #add parent
     Route::get('/infirmier/createParent', [ParentController::class, "view"]);

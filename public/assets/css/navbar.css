@@ -4,20 +4,19 @@
 }
 
 .nav-link.active {
-         
-            color: black !important;
-        }
- .nav-link {
-            font-size: 1.4rem;
-        }
+    color: black !important;
+}
+.nav-link {
+    font-size: 1.4rem;
+}
 
-        @media (max-width: 1420px) {
-            .nav-link {
-                font-size: 1rem;
-                padding: 0  !important;
-            }
-        }
-       
+@media (max-width: 1420px) {
+    .nav-link {
+        font-size: 1rem;
+        padding: 0 !important;
+    }
+}
+
 body,
 html {
     margin: 0;
@@ -35,7 +34,6 @@ html {
 tr {
     cursor: pointer;
 }
-
 
 .bord {
     border: 1px #5da9a2 solid;
@@ -58,4 +56,16 @@ tr {
 }
 .row3 {
     width: 100%;
+}
+
+.success {
+    background-color: hsl(174, 31%, 70%) !important;
+}
+.danger {
+    background-color: hsl(0, 31%, 70%) !important;
+}
+
+.width {
+    width: 15px;
+    padding: 2 !important;
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Enfant;
 use App\Models\ParentModel;
-
+use Illuminate\Support\Facades\Storage;
 
 class ParentController extends Controller
 {
@@ -47,26 +47,54 @@ class ParentController extends Controller
     }
 
 
-    function update($CIN)
+    public function update($CIN)
     {
+        // Validate request data including the profile picture
         request()->validate([
             'Email' => 'required|email',
             'telephone' => 'required',
             'adress' => 'required',
             'Ville' => 'required',
+            'pfp' => 'image|mimes:jpeg,png,jpg,gif|max:2048' // Validate pfp as image file
         ]);
 
+        // Find the parent by CIN
         $parent = ParentModel::find($CIN);
-        $parent->update([
-            'Email' => request()->input('Email'),
-            'telephone' => request()->input('telephone'),
-            'adress' => request()->input('adress'),
-            'Ville' => request()->input('Ville'),
-        ]);
-        $parent->save();
 
-        return redirect("/Parent/$CIN");
+        // If parent found, update fields
+        if ($parent) {
+            $parent->Email = request()->input('Email');
+            $parent->telephone = request()->input('telephone');
+            $parent->adress = request()->input('adress');
+            $parent->Ville = request()->input('Ville');
+
+            // Handle profile picture upload
+            if (request()->hasFile('pfp')) {
+                // Delete existing profile picture if it exists
+                if ($parent->pfp) {
+                    Storage::delete('public/' . $parent->pfp);
+                }
+
+                // Store new profile picture
+                $image = request()->file('pfp');
+                $imageName = $CIN . '.' . $image->getClientOriginalExtension();
+                $path = $image->storeAs('public/profile_pics_parents', $imageName);
+                $parent->pfp = '/storage/profile_pics_parents/' . $imageName; // Store relative path to database
+            }
+
+            // Save changes
+            $parent->save();
+
+            // Redirect to parent detail page
+            return redirect("/Parent/$CIN");
+        } else {
+            // If parent not found, show 404 error
+            abort(404);
+        }
     }
+
+
+    
     public function editform($CIN)
     {          #show view
         $parent = ParentModel::where('CIN', $CIN)->first();

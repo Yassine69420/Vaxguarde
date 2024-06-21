@@ -20,6 +20,7 @@ class Infirmier extends Model
         'date_naissance',
         'nom_Hopital',
         'Email',
+        
     ];
 
     public function hopital()
