@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Enfant;
+use App\Models\ParentModel;
 use App\Models\Vaccination;
 
 class EnfantController extends Controller
@@ -84,6 +85,12 @@ class EnfantController extends Controller
         #generer id 
         $enfantId = $this->generateUniqueEnfantId();
         #creer enfant
+
+         $parent = ParentModel::find($validatedData["CIN_Parent"]);
+         if(!$parent){
+            return redirect()->route('creerEnfant')->withErrors(['noParent' => 'CIN Parent n exsite pas ']);
+         }
+         
         Enfant::create([
             'id' => $enfantId,
             'CIN_Parent' => $validatedData['CIN_Parent'],

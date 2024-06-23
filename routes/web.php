@@ -31,7 +31,7 @@ Route::middleware(['admin'])->group(function () {
     #un seul enfant
     Route::get("/infirmier/enfants/{id}", [EnfantController::class, "find"]);
     #add and delete enfant
-    Route::get('/infirmier/createEnfant', [EnfantController::class, 'show_create']);
+    Route::get('/infirmier/createEnfant', [EnfantController::class, 'show_create'])->name("creerEnfant");
     Route::post('/infirmier/createEnfant/validation', [EnfantController::class, 'create']);
     Route::delete("{id}/delete", [EnfantController::class, 'delete']);
    

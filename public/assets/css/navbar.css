@@ -69,3 +69,11 @@ tr {
     width: 15px;
     padding: 2 !important;
 }
+
+
+.sticky-navbar {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0;
+    z-index: 1030; /* Ensure it is above other elements */
+}

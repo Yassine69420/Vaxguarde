@@ -17,46 +17,47 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-lg">
-            <img src="{{ asset('assets/images/logot.png') }}" alt="" class="logo">
-            <a class="navbar-brand align-middle" style="cursor: pointer">Vaxguarde</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav mr-auto">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <div class="container-lg">
+        <img src="{{ asset('assets/images/logot.png') }}" alt="" class="logo">
+        <a class="navbar-brand align-middle" style="cursor: pointer">Vaxguarde</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item align-middle">
+                    <a class="nav-link m-2 {{ request()->is('infirmier/' . session('INP')) ? 'active' : '' }}"
+                        href="/infirmier/{{ session('INP') }}">Profile<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item align-middle">
+                    <a class="nav-link m-2 {{ request()->is('infirmier/enfants') ? 'active' : '' }}"
+                        href="/infirmier/enfants">Liste d'enfants</a>
+                </li>
+                <li class="nav-item align-middle">
+                    <a class="nav-link m-2 {{ request()->is('infirmier/Historique') ? 'active' : '' }}"
+                        href="/infirmier/Historique">Historique</a>
+                </li>
+                @if (request()->session()->get('INP') == '111111')
                     <li class="nav-item align-middle">
-                        <a class="nav-link m-2 {{ request()->is('infirmier/' . session('INP')) ? 'active' : '' }}"
-                            href="/infirmier/{{ session('INP') }}">Profile<span class="sr-only">(current)</span></a>
+                        <a class="nav-link m-2 {{ request()->is('infirmier/Gestion') ? 'active' : '' }}"
+                            href="/infirmier/Gestion">Gestion des infirmiers</a>
                     </li>
-                    <li class="nav-item align-middle">
-                        <a class="nav-link m-2 {{ request()->is('infirmier/enfants') ? 'active' : '' }}"
-                            href="/infirmier/enfants">Liste d'enfants</a>
-                    </li>
-                    <li class="nav-item align-middle">
-                        <a class="nav-link m-2 {{ request()->is('infirmier/Historique') ? 'active' : '' }}"
-                            href="/infirmier/Historique">Historique</a>
-                    </li>
-                    @if (request()->session()->get('INP') == '111111')
-                        <li class="nav-item align-middle">
-                            <a class="nav-link m-2 {{ request()->is('infirmier/Gestion') ? 'active' : '' }}"
-                                href="/infirmier/Gestion">Gestion des infirmiers</a>
-                        </li>
-                    @endif
-                    <li class="nav-item align-middle">
-                        <a class="nav-link m-2 {{ request()->is('infirmier/manuelDutulisation') ? 'active' : '' }}"
-                            href="/infirmier/manuelDutulisation">Manuel d'utulisation</a>
-                    </li>
-                </ul>
-                <form action="{{ route('logout') }}" method="POST" class="form-inline my-2 my-lg-0">
-                    @csrf
-                    <button type="submit" class="btn btn-outline-danger">Deconnecter</button>
-                </form>
-            </div>
+                @endif
+                <li class="nav-item align-middle">
+                    <a class="nav-link m-2 {{ request()->is('infirmier/manuelDutulisation') ? 'active' : '' }}"
+                        href="/infirmier/manuelDutulisation">Manuel d'utulisation</a>
+                </li>
+            </ul>
+            <form action="{{ route('logout') }}" method="POST" class="form-inline my-2 my-lg-0">
+                @csrf
+                <button type="submit" class="btn btn-outline-danger">Deconnecter</button>
+            </form>
         </div>
-    </nav>
+    </div>
+</nav>
+
 </body>
 
 </html>
