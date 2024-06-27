@@ -16,14 +16,14 @@ class ParentController extends Controller
     public function create()
     {
         $validatedData = request()->validate([
-            'CIN' => ['required', 'max:255', 'min:4', 'string'],
+            'CIN' => ['required', 'max:255', 'min:4', 'string', 'unique:App\Models\ParentModel,CIN'],
             'nom' => ['required', 'max:255', 'min:3'],
             'prenom' => ['required', 'max:255', 'min:3', 'string'],
             'adress' => ['required', 'max:255', 'min:3', 'string'],
-            'telephone' => ['required', 'max:255', 'min:3'],
+            'telephone' => ['required', 'max:255', 'min:3', 'unique:App\Models\ParentModel,telephone'],
             'Ville' => ['required', 'string'],
-            'date_naissance' => ['required','date'],
-            'Email' => ['required', 'email'],
+            'date_naissance' => ['required', 'date'],
+            'Email' => ['required', 'email', 'unique:App\Models\ParentModel,Email'],
         ]);
 
         $existingParent = ParentModel::where('CIN', $validatedData['CIN'])->first();
@@ -51,8 +51,8 @@ class ParentController extends Controller
     {
         // Validate request data including the profile picture
         request()->validate([
-            'Email' => 'required|email',
-            'telephone' => 'required',
+            'Email' => ['required', 'email', 'unique:App\Models\ParentModel,Email'],
+            'telephone' => ['required', 'max:255', 'min:3', 'unique:App\Models\ParentModel,telephone'],
             'adress' => 'required',
             'Ville' => 'required',
             'pfp' => 'image|mimes:jpeg,png,jpg,gif|max:2048' // Validate pfp as image file
@@ -94,7 +94,7 @@ class ParentController extends Controller
     }
 
 
-    
+
     public function editform($CIN)
     {          #show view
         $parent = ParentModel::where('CIN', $CIN)->first();

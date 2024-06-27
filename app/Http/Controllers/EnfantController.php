@@ -19,10 +19,11 @@ class EnfantController extends Controller
     {
         // Retrieve the enfant by its ID
         $enfant = Enfant::find($id);
-
+         
         // Retrieve vaccinations for the enfant
         $vaccinations = Vaccination::where('ID_enfant', $id)->get();
 
+        // dd($vaccinations[1]);
         return view('Parentenfant', ['enfant' => $enfant, 'vaccinations' => $vaccinations]);
     }
 
@@ -86,11 +87,11 @@ class EnfantController extends Controller
         $enfantId = $this->generateUniqueEnfantId();
         #creer enfant
 
-         $parent = ParentModel::find($validatedData["CIN_Parent"]);
-         if(!$parent){
+        $parent = ParentModel::find($validatedData["CIN_Parent"]);
+        if (!$parent) {
             return redirect()->route('creerEnfant')->withErrors(['noParent' => 'CIN Parent n exsite pas ']);
-         }
-         
+        }
+
         Enfant::create([
             'id' => $enfantId,
             'CIN_Parent' => $validatedData['CIN_Parent'],
@@ -117,6 +118,4 @@ class EnfantController extends Controller
         #retourner id 
         return $enfantId;
     }
-
-
 }

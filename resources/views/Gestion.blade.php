@@ -64,7 +64,7 @@
                     @foreach ($infirmiers as $infirmier)
                         <tr>
                             <td class="{{ $infirmier->isAdmin ? 'success' : 'danger' }} width"></td>
-                            <td class=" fs-5 align-middle">{{ $infirmier->INP }}</td>
+                            <td class="fs-5 align-middle">{{ $infirmier->INP }}</td>
                             <td class="fs-5 align-middle">{{ $infirmier->nom }}</td>
                             <td class="fs-5 align-middle">{{ $infirmier->prenom }}</td>
                             <td class="fs-5 align-middle">{{ $infirmier->nom_Hopital }}</td>
@@ -78,11 +78,13 @@
                                         {{ $infirmier->isAdmin ? 'Prohiber' : 'Autoriser' }}
                                     </button>
                                 </form>
+                                <button type="button" class="btn fs-5 btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#confirmDeleteModal"
+                                    onclick="setDeleteForm('{{ $infirmier->INP }}')">Supprimer</button>
                                 <form id="delete-{{ $infirmier->INP }}" action="/{{ $infirmier->INP }}/supprimer"
                                     method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn fs-5 btn-danger">Supprimer</button>
                                 </form>
                             </td>
                         </tr>
@@ -90,7 +92,7 @@
 
                 </tbody>
             </table>
-            <div class="mb-5" >
+            <div class="mb-5">
                 {{ $infirmiers->links('pagination::bootstrap-5') }}
             </div>
 
@@ -100,6 +102,39 @@
 
 
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Êtes-vous sûr de vouloir supprimer cet Infirmier ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteButton">Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function setDeleteForm(infirmierId) {
+            document.getElementById('confirmDeleteButton').setAttribute('data-form-id', 'delete-' + infirmierId);
+        }
+
+        document.getElementById('confirmDeleteButton').addEventListener('click', function() {
+            const formId = this.getAttribute('data-form-id');
+            document.getElementById(formId).submit();
+        });
+    </script>
 
 </body>
 

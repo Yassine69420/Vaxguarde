@@ -87,18 +87,24 @@
     @endphp
 
     @foreach ($vaccinationStatuses as $vaccine => $details)
-   <div onclick="window.location='/infirmier/vacciner/{{$enfant->id}}/{{$vaccine}}'" class="idk">  <div class="card text-white 
-       {{ $details['status'] ? 'bg-success' : ($age < $details['age'] ? 'bg-secondary' : 'bg-danger') }}
-       mb-3" style="width: 19rem; height:11.8rem">
-    <div class="card-header">{{ $details['age'] }} months</div>
-    <div class="card-body border-0 mt-0 p-3">
-      <h5 class="card-title">{{ $details['name'] }}</h5>
-      <p class="card-text">Status: {{ $details['status'] ? 'déjà Vacciné' : 'en attente' }}</p>
+    @php
+        $cardClass = $details['status'] ? 'bg-success' : ($age < $details['age'] ? 'bg-secondary' : 'bg-danger');
+    @endphp
+    <div class="idk">
+        <div class="card text-white {{ $cardClass }} mb-3" 
+             style="width: 19rem; height:11.8rem"
+             @if($cardClass == 'bg-danger')
+                 onclick="window.location='/infirmier/vacciner/{{$enfant->id}}/{{$vaccine}}'"
+             @endif>
+            <div class="card-header">{{ $details['age'] }} months</div>
+            <div class="card-body border-0 mt-0 p-3">
+                <h5 class="card-title">{{ $details['name'] }}</h5>
+                <p class="card-text">Status: {{ $details['status'] ? 'déjà Vacciné' : 'en attente' }}</p>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+@endforeach
 
-    @endforeach
 </div>
 
 

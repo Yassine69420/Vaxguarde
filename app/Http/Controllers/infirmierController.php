@@ -24,12 +24,12 @@ class infirmierController extends Controller
         $validatedData = request()->validate([
             'nom' => ['required', 'max:255', 'min:3', 'string'],
             'prenom' => ['required', 'max:255', 'min:3', 'string'],
-            'CIN' => ['required', 'max:255', 'min:4', 'string'],
-            'INP' => ['required', 'max:255', 'min:3'],
+            'CIN' => ['required', 'max:255', 'min:4', 'string', 'unique:App\Models\Infirmier,CIN'],
+            'INP' => ['required', 'max:255', 'min:3', 'unique:App\Models\Infirmier,INP'],
             'Ville' => ['required', 'max:255', 'min:3', 'string'],
             'date_naissance' => ['required', 'date'],
             'nom_Hopital' => ['required', 'max:255', 'min:3', 'string'],
-            'email' => ['required', 'Email'],
+            'email' => ['required', 'Email', 'unique:App\Models\Infirmier,Email'],
         ]);
 
         Infirmier::create([
