@@ -33,20 +33,21 @@
                 </div>
                 <div class="col-6 col-md-3">
                     <small>Age</small> <br>
-                    <?php
+                   <?php
                     $datenaissance = new DateTime($enfant->date_naissance);
                     $Datetoday = new DateTime();
+
                     $ageInterval = $datenaissance->diff($Datetoday);
-                    
+
                     if ($ageInterval->y < 2) {
                         $age = $ageInterval->m + $ageInterval->y * 12; // Convert years to months and add
                         $ageLabel = 'mois';
                     } else {
-                        $age = $ageInterval->y * 12 + $ageInterval->m; // Convert age to total months
-                        $ageLabel = 'mois'; // Keep it as months for consistency
+                        $age = $ageInterval->y;
+                        $ageLabel = 'an' . ($age != 1 ? 's' : ''); // Year(s) for consistency
                     }
                     ?>
-                    <strong>{{ $age }} {{ $ageLabel }} old</strong> <br>
+                    <strong>{{ $age }} {{ $ageLabel }} </strong> <br>
                 </div>
                 <div class="col-6 col-md-3">
                     <small>Date DE NAISSANCE</small> <br>

@@ -12,10 +12,10 @@ class vaccinationcontroller extends Controller
     {
         $enfant = Enfant::find($id);
         $today = date('Y-m-d');
-        return view('vaccination', compact('enfant', 'vaccine' , 'today'));
+        return view('vaccination', compact('enfant', 'vaccine', 'today'));
     }
 
-    
+
     public function submitVaccinationForm()
     {
 
@@ -29,7 +29,7 @@ class vaccinationcontroller extends Controller
 
             $vaccineField = "{$vaccine}";
             $enfant->$vaccineField = true;
-           
+
             $enfant->save();
 
 
@@ -55,5 +55,12 @@ class vaccinationcontroller extends Controller
         return view('history', [
             'vaccinations' => $vaccinations,
         ]);
+    }
+
+
+    public function downloadPdf()
+    {
+        $filePath = public_path('assets/pdfs/BroCode.pdf');
+        return response()->download($filePath); // Ensure you return the response
     }
 }

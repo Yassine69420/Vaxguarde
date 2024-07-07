@@ -42,43 +42,39 @@
     @csrf
 
     <div class="row">
-        <div class="secondcol col-lg bg-light p-0 d-flex justify-center align-items-center">
-
-            <div class="container-lg">
-                <div class="col-lg border-right row3 ">
-                    <div class="p-2 py-3">
-                        <div class="row mt-2 mrg m-5">
-                            <div class="col-md-6">
-                                <label class="labels">Nom</label>
-                                <input type="text" name="nom" class="form-control" placeholder="Nom" />
-                            </div>
-                            <div class="col-md-6">
-                                <label class="labels">Prenom</label>
-                                <input type="text" name="prenom" class="form-control" placeholder="Prenom" />
-                            </div>
+    <div class="secondcol col-lg bg-light p-0 d-flex justify-center align-items-center">
+        <div class="container-lg">
+            <div class="col-lg border-right row3 ">
+                <div class="p-2 py-3">
+                    <div class="row mt-2 mrg m-5">
+                        <div class="col-md-6">
+                            <label class="labels">Nom</label>
+                            <input type="text" name="nom" class="form-control" placeholder="Nom" value="{{ old('nom') }}" />
                         </div>
-                        <div class="row mt-2 mrg m-5">
-                            <div class="col-md-6">
-                                <label class="labels">CIN du Parent</label>
-                                <input type="text" name="CIN_Parent" class="form-control"
-                                    value="{{ old('CIN_Parent', request()->input('CIN_Parent')) }}"
-                                    placeholder="M29382 comme exemple" />
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="labels">Date de naissance</label>
-                                <input type="date" name="date_naissance" class="form-control" />
-                            </div>
+                        <div class="col-md-6">
+                            <label class="labels">Prenom</label>
+                            <input type="text" name="prenom" class="form-control" placeholder="Prenom" value="{{ old('prenom') }}" />
                         </div>
-                         <div class="d-flex justify-content-between  m-3   ">
-                        <a href="/infirmier/enfants" class="btn text-danger  pl-4 pr-4 ml-2 ">Cancel</a>
-                        <button type="submit "  class="btn btn-success pl-4 pr-4 mr-2">Ajouter</button>
                     </div>
+                    <div class="row mt-2 mrg m-5">
+                        <div class="col-md-6">
+                            <label class="labels">CIN du Parent</label>
+                            <input type="text" name="CIN_Parent" class="form-control" value="{{ old('CIN_Parent', request()->input('CIN_Parent')) }}" placeholder="M29382 comme exemple" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="labels">Date de naissance</label>
+                            <input type="date" name="date_naissance" class="form-control" value="{{ old('date_naissance') }}" />
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between  m-3">
+                        <a href="/infirmier/enfants" class="btn text-danger pl-4 pr-4 ml-2">Cancel</a>
+                        <button type="submit" class="btn btn-success pl-4 pr-4 mr-2">Ajouter</button>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
+</div>
+
 
 </form>

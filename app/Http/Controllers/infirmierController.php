@@ -21,16 +21,63 @@ class infirmierController extends Controller
     }
     function ajouter()
     {
-        $validatedData = request()->validate([
-            'nom' => ['required', 'max:255', 'min:3', 'string'],
-            'prenom' => ['required', 'max:255', 'min:3', 'string'],
-            'CIN' => ['required', 'max:255', 'min:4', 'string', 'unique:App\Models\Infirmier,CIN'],
-            'INP' => ['required', 'max:255', 'min:3', 'unique:App\Models\Infirmier,INP'],
-            'Ville' => ['required', 'max:255', 'min:3', 'string'],
-            'date_naissance' => ['required', 'date'],
-            'nom_Hopital' => ['required', 'max:255', 'min:3', 'string'],
-            'email' => ['required', 'Email', 'unique:App\Models\Infirmier,Email'],
-        ]);
+        $validatedData = request()->validate(
+            [
+                'nom' => ['required', 'max:50', 'min:3', 'string', 'regex:/^[A-Za-z]+$/'],
+                'prenom' => ['required', 'max:50', 'min:3', 'string', 'regex:/^[A-Za-zÀ-ÿ\s\-]+$/'],
+                'CIN' => ['required', 'max:255', 'min:4', 'string', 'unique:App\Models\Infirmier,CIN', 'regex:/^[A-Za-z]{1,2}\d{4,6}$/'],
+                'INP' => ['required', 'max:255', 'min:3', 'unique:App\Models\Infirmier,INP', 'regex:/^\d{9}$/'],
+                'Ville' => ['required', 'max:255', 'min:3', 'string', 'regex:/^[A-Za-zÀ-ÿ\s\-]+$/'],
+                'date_naissance' => ['required', 'date'],
+                'nom_Hopital' => ['required', 'max:255', 'min:3', 'string', 'regex:/^[A-Za-zÀ-ÿ\s\-]+$/'],
+                'email' => ['required', 'email', 'unique:App\Models\Infirmier,Email'],
+            ],
+            [
+                'nom.required' => 'Le champ nom est obligatoire.',
+                'nom.max' => 'Le nom ne doit pas dépasser 50 caractères.',
+                'nom.min' => 'Le nom doit comporter au moins 3 caractères.',
+                'nom.string' => 'Le nom doit être une chaîne de caractères.',
+                'nom.regex' => 'Le nom ne peut contenir que des lettres, espaces ',
+
+                'prenom.required' => 'Le champ prénom est obligatoire.',
+                'prenom.max' => 'Le prénom ne doit pas dépasser 50 caractères.',
+                'prenom.min' => 'Le prénom doit comporter au moins 3 caractères.',
+                'prenom.string' => 'Le prénom doit être une chaîne de caractères.',
+                'prenom.regex' => 'Le prénom ne peut contenir que des lettres, espaces, et tirets.',
+
+                'CIN.required' => 'Le champ CIN est obligatoire.',
+                'CIN.max' => 'Le CIN ne doit pas dépasser 255 caractères.',
+                'CIN.min' => 'Le CIN doit comporter au moins 4 caractères.',
+                'CIN.string' => 'Le CIN doit être une chaîne de caractères.',
+                'CIN.unique' => 'Ce CIN est déjà utilisé.',
+                'CIN.regex' => 'Format de CIN invalide. Exemple valide: A12345.',
+
+                'INP.required' => 'Le champ INP est obligatoire.',
+                'INP.max' => 'L\'INP ne doit pas dépasser 255 caractères.',
+                'INP.min' => 'L\'INP doit comporter au moins 3 caractères.',
+                'INP.unique' => 'Cet INP est déjà utilisé.',
+                'INP.regex' => 'Format d\'INP invalide. Il doit contenir exactement 9 chiffres.',
+
+                'Ville.required' => 'Le champ Ville est obligatoire.',
+                'Ville.max' => 'La Ville ne doit pas dépasser 255 caractères.',
+                'Ville.min' => 'La Ville doit comporter au moins 3 caractères.',
+                'Ville.string' => 'La Ville doit être une chaîne de caractères.',
+                'Ville.regex' => 'La Ville ne peut contenir que des lettres, espaces, et tirets.',
+
+                'date_naissance.required' => 'Le champ date de naissance est obligatoire.',
+                'date_naissance.date' => 'Format de date de naissance invalide.',
+
+                'nom_Hopital.required' => 'Le champ nom de l\'hôpital est obligatoire.',
+                'nom_Hopital.max' => 'Le nom de l\'hôpital ne doit pas dépasser 255 caractères.',
+                'nom_Hopital.min' => 'Le nom de l\'hôpital doit comporter au moins 3 caractères.',
+                'nom_Hopital.string' => 'Le nom de l\'hôpital doit être une chaîne de caractères.',
+                'nom_Hopital.regex' => 'Le nom de l\'hôpital ne peut contenir que des lettres, espaces, et tirets.',
+
+                'email.required' => 'Le champ email est obligatoire.',
+                'email.email' => 'Format d\'email invalide.',
+                'email.unique' => 'Cet email est déjà utilisé.',
+            ]
+        );
 
         Infirmier::create([
             'CIN' => $validatedData['CIN'],
@@ -45,6 +92,7 @@ class infirmierController extends Controller
 
         return redirect('/');
     }
+
     function show_form()
     {
         return view('form');
@@ -63,8 +111,8 @@ class infirmierController extends Controller
 
         # Validate the inputs (INP is nullable)
         $search = request()->validate([
-            'INP' => ['nullable', 'max:8', 'min:2'],
-            'nom' => ['nullable', 'string'],
+            'INP' => ['nullable', 'max:8', 'min:2', 'regex:/^\d{2,8}$/'],
+            'nom' => ['nullable', 'string', 'regex:/^[A-Za-zÀ-ÿ\s\-]+$/'], // Alphabetic characters, spaces, accents (À-ÿ), hyphens
         ]);
 
         # Apply the 'INP' condition if provided
@@ -105,10 +153,10 @@ class infirmierController extends Controller
     {
         // Validate request data
         request()->validate([
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'Ville' => 'required|string|max:255',
-            'nom_Hopital' => 'required|string|max:255',
+            'nom' => 'required|string|max:255|regex:/^[A-Za-zÀ-ÿ\s\-]+$/',
+            'prenom' => 'required|string|max:255|regex:/^[A-Za-zÀ-ÿ\s\-]+$/',
+            'Ville' => 'required|string|max:255|regex:/^[A-Za-zÀ-ÿ\s\-]+$/',
+            'nom_Hopital' => 'required|string|max:255|regex:/^[A-Za-zÀ-ÿ\s\-]+$/',
             'pfp' => 'image|mimes:jpeg,png,jpg,gif|max:2048' // Validate pfp as image file
         ]);
 
@@ -147,14 +195,22 @@ class infirmierController extends Controller
         }
     }
 
-    public function showpfp($INP)
-    {     #trouver et passer les infos 
-        $infirmier = Infirmier::findOrFail($INP);
+    public function showpfp()
+    {
+        # Retrieve the INP from the session
+        $INP = session('INP');
+
+        # Find the infirmier using the INP
+        $infirmier = Infirmier::where('INP', $INP)->firstOrFail();
+
+        # Pass the infirmier information to the view
         return view('Infirmierpfp', ['infirmier' => $infirmier]);
     }
 
-    public function find($INP)
+
+    public function find()
     {      #trouver et passer les infos 
+        $INP = session('INP');
         $infirmier = Infirmier::findorfail($INP);
         return view('Infirmier', ['infirmier' => $infirmier]);
     }

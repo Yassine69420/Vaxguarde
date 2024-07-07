@@ -30,58 +30,57 @@
 
 
             <form action="/register" id="register" method="POST" class="form mt-0">
-                @csrf
-                @if ($errors->any())
-                    <div class="alert alert-danger alert-dismissible fade show">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                <div class="column">
-                    <div class="input-box">
-                        <label>Nom :</label>
-                        <input type="text" name="nom" placeholder="Entrer Votre Nom" />
-                    </div>
-                    <div class="input-box">
-                        <label>Prénom :</label>
-                        <input type="text" name="prenom" placeholder="Entrer votre Prénom" />
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="input-box">
-                        <label>CIN :</label>
-                        <input type="text" name="CIN" placeholder="Entrer Votre CIN" />
-                    </div>
-                    <div class="input-box">
-                        <label>INP :</label>
-                        <input type="text" name="INP" placeholder="Entrer Votre INP" />
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="input-box">
-                        <label>Ville :</label>
-                        <input type="text" name="Ville" placeholder="Entrer Votre Ville" />
-                    </div>
-                    <div class="input-box">
-                        <label>Date De Naissance</label>
-                        <input type="date" name="date_naissance" />
-                    </div>
-                </div>
-                <div class="input-box">
-                    <label>Email :</label>
-                    <input type="email" name="email" placeholder="Entrer votre email " />
-                </div>
-                <div class="input-box">
-                    <label>Nom d'Hopital</label>
-                    <input type="text" name="nom_Hopital" placeholder="Entrer le nom d'hopital" />
-                </div>
-                <button type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#exampleModalCenter">S'enregistrer</button>
+    @csrf
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <div class="column">
+        <div class="input-box">
+            <label>Nom :</label>
+            <input type="text" name="nom" placeholder="Entrer Votre Nom" value="{{ old('nom') }}" />
+        </div>
+        <div class="input-box">
+            <label>Prénom :</label>
+            <input type="text" name="prenom" placeholder="Entrer votre Prénom" value="{{ old('prenom') }}" />
+        </div>
     </div>
-    </form>
+    <div class="column">
+        <div class="input-box">
+            <label>CIN :</label>
+            <input type="text" name="CIN" placeholder="Entrer Votre CIN" value="{{ old('CIN') }}" />
+        </div>
+        <div class="input-box">
+            <label>INP :</label>
+            <input type="text" name="INP" placeholder="Entrer Votre INP" value="{{ old('INP') }}" />
+        </div>
+    </div>
+    <div class="column">
+        <div class="input-box">
+            <label>Ville :</label>
+            <input type="text" name="Ville" placeholder="Entrer Votre Ville" value="{{ old('Ville') }}" />
+        </div>
+        <div class="input-box">
+            <label>Date De Naissance</label>
+            <input type="date" name="date_naissance" value="{{ old('date_naissance') }}" />
+        </div>
+    </div>
+    <div class="input-box">
+        <label>Email :</label>
+        <input type="email" name="email" placeholder="Entrer votre email " value="{{ old('email') }}" />
+    </div>
+    <div class="input-box">
+        <label>Nom d'Hopital</label>
+        <input type="text" name="nom_Hopital" placeholder="Entrer le nom d'hopital" value="{{ old('nom_Hopital') }}" />
+    </div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">S'enregistrer</button>
+</form>
+
     </section>
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

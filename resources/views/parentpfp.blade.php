@@ -13,12 +13,12 @@
 </head>
 
 <body>
-    <div class="container-lg">
+    <div class="container-lg pb-5 ">
         <div style="flex-direction: row;"
             class="container bord card body-card p-3 my-4 d-flex justify-content-between align-items-center rounded">
             <img class="logo" height="60" src="{{ asset('assets\images\logot.png') }}" alt=""
                 srcset="">
-            <a class="nav-link " href="/">
+            <a class="nav-link" href="/">
                 <button class="btn btn-danger ">Quitter</button>
             </a>
         </div>
@@ -39,8 +39,8 @@
 
         </div>
 
-        <div class="card-body  mt-4 ">
-            <div class="card-body bord">
+        <div class="card-body pb-0  ">
+            <div class="card-body bord ">
                 <div class="row">
                     <div class="col-6 col-md-4">
                         <small>NOM</small> <br>
@@ -71,15 +71,15 @@
 
         </div>
 
-        <div class="d-flex justify-content-center m-5">
-            <a href="/Parent/{{ $parent->CIN }}/edit" class="btn btn-outline-primary">Edit</a>
+        <div class="d-flex justify-content-center m-3">
+            <a href="/Parent/{{ $parent->CIN }}/edit" class="btn btn-outline-info">Edit</a>
         </div>
 
 
         <!-- Table of Kids' Information -->
-        <div class="kids-info mt-5">
+        <div  class="kids-info mt-0 ">
 
-            <table class="table  ">
+            <table class="table ">
                 <thead class="thead-dark">
                     <tr>
                         <th colspan="4" class="text-center fs-3">Enfants</th>

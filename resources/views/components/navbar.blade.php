@@ -46,8 +46,7 @@
                     </li>
                 @endif
                 <li class="nav-item align-middle">
-                    <a class="nav-link m-2 {{ request()->is('infirmier/manuelDutulisation') ? 'active' : '' }}"
-                        href="/infirmier/manuelDutulisation">Manuel d'utulisation</a>
+                     <a class="nav-link m-2" href="#" data-toggle="modal" data-target="#downloadModal">Manuel d'Utulisation</a>
                 </li>
             </ul>
             <form action="{{ route('logout') }}" method="POST" class="form-inline my-2 my-lg-0">
@@ -57,6 +56,27 @@
         </div>
     </div>
 </nav>
+
+
+ <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="downloadModalLabel">Telecharger PDF</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 Vous voulez vraiment télécharger le document PDF du manuel d'utilisation ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                    <a href="{{ route('download.pdf') }}" class="btn btn-primary">Oui</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 

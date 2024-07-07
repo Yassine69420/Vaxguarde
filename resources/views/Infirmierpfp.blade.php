@@ -10,7 +10,7 @@
 <x-header>
     <div class="d-flex justify-content-between">
         <div>Profile</div>
-        <a class="btn btn-outline-light align-middle fs-5 " href="/infirmier/{{ $infirmier->INP }}/edit" type="button">
+        <a class="btn btn-outline-light align-middle fs-5 " href="/infirmier/edit" type="button">
             Edit
         </a>
     </div>

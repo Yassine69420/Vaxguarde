@@ -19,7 +19,7 @@ class EnfantController extends Controller
     {
         // Retrieve the enfant by its ID
         $enfant = Enfant::find($id);
-         
+
         // Retrieve vaccinations for the enfant
         $vaccinations = Vaccination::where('ID_enfant', $id)->get();
 
@@ -76,22 +76,42 @@ class EnfantController extends Controller
     #creer enfant
     public function create()
     {
-        #valider
+        // Validate request data
         $validatedData = request()->validate([
-            'CIN_Parent' => ['required', 'max:255', 'min:4'],
+            'CIN_Parent' => ['required', 'max:255', 'min:4', 'regex:/^[A-Za-z]{1,2}\d{4,6}$/'],
             'nom' => ['required', 'max:255', 'min:1', 'string'],
             'prenom' => ['required', 'max:255', 'min:3', 'string'],
             'date_naissance' => ['required', 'date'],
-        ]);
-        #generer id 
-        $enfantId = $this->generateUniqueEnfantId();
-        #creer enfant
+        ], [
+            'CIN_Parent.required' => 'Le champ CIN Parent est obligatoire.',
+            'CIN_Parent.max' => 'Le CIN Parent ne doit pas dépasser 255 caractères.',
+            'CIN_Parent.min' => 'Le CIN Parent doit comporter au moins 4 caractères.',
+            'CIN_Parent.regex' => 'Format de CIN Parent invalide. Exemple valide: A12345.',
 
-        $parent = ParentModel::find($validatedData["CIN_Parent"]);
+            'nom.required' => 'Le champ nom est obligatoire.',
+            'nom.max' => 'Le nom ne doit pas dépasser 255 caractères.',
+            'nom.min' => 'Le nom doit comporter au moins 1 caractère.',
+            'nom.string' => 'Le nom doit être une chaîne de caractères.',
+
+            'prenom.required' => 'Le champ prénom est obligatoire.',
+            'prenom.max' => 'Le prénom ne doit pas dépasser 255 caractères.',
+            'prenom.min' => 'Le prénom doit comporter au moins 3 caractères.',
+            'prenom.string' => 'Le prénom doit être une chaîne de caractères.',
+
+            'date_naissance.required' => 'Le champ date de naissance est obligatoire.',
+            'date_naissance.date' => 'Format de date de naissance invalide.',
+        ]);
+
+        // Generate unique id for the enfant
+        $enfantId = $this->generateUniqueEnfantId();
+
+        // Check if parent exists
+        $parent = ParentModel::find($validatedData['CIN_Parent']);
         if (!$parent) {
-            return redirect()->route('creerEnfant')->withErrors(['noParent' => 'CIN Parent n exsite pas ']);
+            return redirect()->route('creerEnfant')->withErrors(['noParent' => 'CIN Parent n\'existe pas']);
         }
 
+        // Create enfant
         Enfant::create([
             'id' => $enfantId,
             'CIN_Parent' => $validatedData['CIN_Parent'],
@@ -99,9 +119,11 @@ class EnfantController extends Controller
             'prenom' => $validatedData['prenom'],
             'date_naissance' => $validatedData['date_naissance'],
         ]);
-        #retourner
+
+        // Redirect to the list of enfants
         return redirect('/infirmier/enfants');
     }
+
 
     #methode pour generer un ID unique
     private function generateUniqueEnfantId()

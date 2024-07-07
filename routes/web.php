@@ -9,6 +9,9 @@ use App\Http\Controllers\vaccinationcontroller;
 use Illuminate\Support\Facades\Route;
 
 
+// routes/web.php
+
+
 #main page
 Route::get('/', [InfirmierController::class, "welcome"]);
 
@@ -19,7 +22,8 @@ Route::Post('/register', [InfirmierController::class, "ajouter"]);
 
 Route::middleware(['admin'])->group(function () {
     #tous les enfants
-
+   
+    Route::get('/download-pdf', [VaccinationController::class, 'downloadPdf'])->name('download.pdf');
     Route::get('/infirmier/enfants', [EnfantController::class, "show_all"])->name('show_all');
     Route::post('/infirmier/enfants', [EnfantController::class, 'show_all']);
 
@@ -34,7 +38,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/infirmier/createEnfant', [EnfantController::class, 'show_create'])->name("creerEnfant");
     Route::post('/infirmier/createEnfant/validation', [EnfantController::class, 'create']);
     Route::delete("{id}/delete", [EnfantController::class, 'delete']);
-   
+
 
     #add parent
     Route::get('/infirmier/createParent', [ParentController::class, "view"]);
@@ -47,8 +51,8 @@ Route::middleware(['admin'])->group(function () {
 
 
     #edit
-    Route::get('infirmier/{INP}', [InfirmierController::class, 'showpfp'])->name('infirmier.dashboard');
-    Route::get('infirmier/{INP}/edit', [InfirmierController::class, 'find']);
+    Route::get('infirmier/', [InfirmierController::class, 'showpfp'])->name('infirmier.dashboard');
+    Route::get('infirmier/edit', [InfirmierController::class, 'find']);
     Route::patch('infirmier/{INP}/edit/validate', [InfirmierController::class, 'update']);
 });
 #parent page 
