@@ -10,6 +10,17 @@ use Illuminate\Support\Facades\Storage;
 class infirmierController extends Controller
 {
 
+    public function showpfp()
+    {
+        # Retrieve the INP from the session
+        $INP = session('INP');
+
+        # Find the infirmier using the INP
+        $infirmier = Infirmier::where('INP', $INP)->firstOrFail();
+
+        # Pass the infirmier information to the view
+        return view('Infirmierpfp', ['infirmier' => $infirmier]);
+    }
 
     function welcome()
     {
@@ -188,24 +199,14 @@ class infirmierController extends Controller
             $infirmier->save();
 
             // Redirect to infirmier detail page
-            return redirect("/infirmier/$INP");
+            return redirect("/infirmier");
         } else {
             // If infirmier not found, show 404 error
             abort(404);
         }
     }
 
-    public function showpfp()
-    {
-        # Retrieve the INP from the session
-        $INP = session('INP');
-
-        # Find the infirmier using the INP
-        $infirmier = Infirmier::where('INP', $INP)->firstOrFail();
-
-        # Pass the infirmier information to the view
-        return view('Infirmierpfp', ['infirmier' => $infirmier]);
-    }
+  
 
 
     public function find()

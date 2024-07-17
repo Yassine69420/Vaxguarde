@@ -60,7 +60,7 @@ class vaccinationcontroller extends Controller
 
     public function downloadPdf()
     {
-        $filePath = public_path('assets/pdfs/BroCode.pdf');
+        $filePath = public_path('assets/pdfs/Manuel_d_Utulisation.pdf');
         return response()->download($filePath); // Ensure you return the response
     }
 }
