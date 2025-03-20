@@ -33,85 +33,91 @@
     </x-header>
 
 
+
     <div class="container-lg">
-        <div class="input-group w-75 mt-4">
-        <div class="row">
-            <!-- Element 1 -->
-            <div class="col-md-6 mb-3 mb-md-0">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">ID</span>
+        <form id="searchForm" action="{{ url('/infirmier/enfants') }}" method="POST">
+            @csrf
+            <div class="input-group w-75 mt-4">
+                <div class="row">
+                    <!-- Element 1 -->
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">ID</span>
+                            </div>
+                            <input type="search" name="id" class="form-control" placeholder="ID d'enfant"
+                                aria-label="ID d'enfant" aria-describedby="basic-addon1">
+                            <button type="submit" class="btn btn-outline-success">Trouver</button>
+                        </div>
                     </div>
-                    <input type="search" name="id" class="form-control" placeholder="ID d'enfant" aria-label="ID d'enfant" aria-describedby="basic-addon1">
-                    <button type="submit" class="btn btn-outline-success">Trouver</button>
+
+                    <!-- Element 2 -->
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Nom</span>
+                            </div>
+                            <input type="search" name="nom" class="form-control" placeholder="Nom d'enfant"
+                                aria-label="Nom d'enfant" aria-describedby="basic-addon1">
+                            <button type="submit" class="btn btn-outline-success">Trouver</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </form>
 
-            <!-- Element 2 -->
-            <div class="col-md-6">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Nom</span>
-                    </div>
-                    <input type="search" name="nom" class="form-control" placeholder="Nom d'enfant" aria-label="Nom d'enfant" aria-describedby="basic-addon1">
-                    <button type="submit" class="btn btn-outline-success">Trouver</button>
+
+
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
-            </div>
-        </div>
-    </div>
+            @endif
 
-
-
-        @if ($errors->any())
-            <div class="alert alert-danger alert-dismissible fade show">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <div class="table-responsive p-0">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Prénom</th>
-                        <th scope="col">Date de Naissance</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($enfants as $enfant)
-                        <tr onclick="window.location='/infirmier/enfants/{{ $enfant->id }}'">
-                            <td class="fs-5 align-middle">{{ $enfant->id }}</td>
-                            <td class="fs-5 align-middle">{{ $enfant->nom }}</td>
-                            <td class="fs-5 align-middle">{{ $enfant->prenom }}</td>
-                            <td class="fs-5 align-middle">{{ $enfant->date_naissance }}</td>
-                            <td class="w-full">
-                                <div class="d-flex flex-column flex-md-row">
-                                    <button class="btn fs-5 btn-info mb-2 mb-md-0 me-md-2"
-                                        onclick="event.stopPropagation(); window.location='/infirmier/enfants/{{ $enfant->id }}'">Voir</button>
-                                    <button type="button" class="btn fs-5 btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#confirmDeleteModal"
-                                        onclick="event.stopPropagation(); setDeleteForm('{{ $enfant->id }}')">Supprimer</button>
-                                </div>
-                            </td>
+            <div class="table-responsive p-0">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Date de Naissance</th>
+                            <th scope="col">Action</th>
                         </tr>
-                        <form id="delete-{{ $enfant->id }}" action="/{{ $enfant->id }}/delete" method="POST">
-                            @csrf
-                            @method('DELETE')
-                        </form>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($enfants as $enfant)
+                            <tr>
+                                <td class="fs-5 align-middle">{{ $enfant->id }}</td>
+                                <td class="fs-5 align-middle">{{ $enfant->nom }}</td>
+                                <td class="fs-5 align-middle">{{ $enfant->prenom }}</td>
+                                <td class="fs-5 align-middle">{{ $enfant->date_naissance }}</td>
+                                <td class="w-full">
+                                    <div class="d-flex flex-column flex-md-row">
+                                        <button class="btn fs-5 btn-info mb-2 mb-md-0 me-md-2"
+                                            onclick="event.stopPropagation(); window.location='/infirmier/enfants/{{ $enfant->id }}'">Voir</button>
+                                        <button type="button" class="btn fs-5 btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#confirmDeleteModal"
+                                            onclick="event.stopPropagation(); setDeleteForm('{{ $enfant->id }}')">Supprimer</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <form id="delete-{{ $enfant->id }}" action="/{{ $enfant->id }}/delete" method="POST">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        @endforeach
+                    </tbody>
+                </table>
 
-            <div class="mb-5">
-                {{ $enfants->links('pagination::bootstrap-5') }}
+                <div class="mb-5">
+                    {{ $enfants->links('pagination::bootstrap-5') }}
+                </div>
             </div>
-        </div>
     </div>
 
     <!-- Modal -->

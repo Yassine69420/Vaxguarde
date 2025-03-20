@@ -20,10 +20,12 @@
         <img src="{{ asset($infirmier->pfp) }}" alt="Profile Picture" class="pfpimage">
     </div>
 @else
-    <div class=" mt-1  background-container">
-        <img src="{{ asset('assets\images\pfp.png') }}" alt="Centered Image" class="center-image">
+    <div class="mt-1 background-container">
+        <img src="{{ asset('assets/images/pfp.png') }}" alt="Default Profile Picture" class="center-image">
     </div>
 @endif
+
+
 
 <div class="card mt-3 p-5">
     <div class="container-lg">

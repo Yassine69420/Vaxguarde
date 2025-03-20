@@ -10,6 +10,17 @@ use Illuminate\Support\Facades\Storage;
 class infirmierController extends Controller
 {
 
+    public function showpfp()
+    {
+        # Retrieve the INP from the session
+        $INP = session('INP');
+
+        # Find the infirmier using the INP
+        $infirmier = Infirmier::where('INP', $INP)->firstOrFail();
+
+        # Pass the infirmier information to the view
+        return view('Infirmierpfp', ['infirmier' => $infirmier]);
+    }
 
     function welcome()
     {
@@ -176,36 +187,25 @@ class infirmierController extends Controller
                 if ($infirmier->pfp) {
                     Storage::delete('public/' . $infirmier->pfp);
                 }
-
                 // Store new profile picture
                 $image = request()->file('pfp');
                 $imageName = $INP . '.' . $image->getClientOriginalExtension();
                 $path = $image->storeAs('public/profile_pics/', $imageName);
-                $infirmier->pfp = '/storage/profile_pics/' . $imageName; // Store relative path to database
+                $infirmier->pfp = '/storage/profile_pics/' . $imageName; 
             }
 
             // Save changes
             $infirmier->save();
 
             // Redirect to infirmier detail page
-            return redirect("/infirmier/$INP");
+            return redirect("/infirmier");
         } else {
             // If infirmier not found, show 404 error
             abort(404);
         }
     }
 
-    public function showpfp()
-    {
-        # Retrieve the INP from the session
-        $INP = session('INP');
-
-        # Find the infirmier using the INP
-        $infirmier = Infirmier::where('INP', $INP)->firstOrFail();
-
-        # Pass the infirmier information to the view
-        return view('Infirmierpfp', ['infirmier' => $infirmier]);
-    }
+  
 
 
     public function find()

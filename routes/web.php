@@ -11,10 +11,8 @@ use Illuminate\Support\Facades\Route;
 
 // routes/web.php
 
-
 #main page
 Route::get('/', [InfirmierController::class, "welcome"]);
-
 #s'enregistrer comme infirmier
 Route::get('/register', [InfirmierController::class, "show_form"]);
 Route::Post('/register', [InfirmierController::class, "ajouter"]);
@@ -22,7 +20,7 @@ Route::Post('/register', [InfirmierController::class, "ajouter"]);
 
 Route::middleware(['admin'])->group(function () {
     #tous les enfants
-   
+
     Route::get('/download-pdf', [VaccinationController::class, 'downloadPdf'])->name('download.pdf');
     Route::get('/infirmier/enfants', [EnfantController::class, "show_all"])->name('show_all');
     Route::post('/infirmier/enfants', [EnfantController::class, 'show_all']);

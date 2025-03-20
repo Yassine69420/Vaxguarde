@@ -10,7 +10,6 @@
 <x-header>
     <div class="d-flex justify-content-between">
 
-
         <div>Profile Edit</div>
 
         <button class="btn btn-outline-light  align-middle fs-5 " type="button" onclick="history.back()">
@@ -23,16 +22,13 @@
 
 <div class="mt-1 background-container">
     <label for="file-input" class="position-relative">
-        @if ($infirmier->pfp)
-            <img src="{{ asset($infirmier->pfp) }}" id="profile-picture" alt="Profile Picture" class="center-image">
-        @else
-            <img src="{{ asset('assets/images/pfp.png') }}" id="profile-picture" alt="Centered Image"
-                class="center-image">
-        @endif
+        @php
+            $profilePic = $infirmier->pfp ? asset($infirmier->pfp) : asset('assets/images/pfp.png');
+        @endphp
+        <img src="{{ $profilePic }}" id="profile-picture" alt="Profile Picture" class="center-image">
         <span class="change-text">Changer</span>
     </label>
-    <input type="file" id="file-input" form="edit" name="pfp" style="display: none;"
-        onchange="previewImage(event)">
+    <input type="file" id="file-input" form="edit" name="pfp" style="display: none;" onchange="previewImage(event)">
 </div>
 
 

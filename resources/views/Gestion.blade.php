@@ -28,21 +28,37 @@
 
             <form id="searchForm" class="mb-1" action="{{ url('/infirmier/Gestion') }}" method="GET">
                 @csrf
-                <div class="input-group w-75 mt-4">
 
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">INP</span>
+                <div class="input-group w-75 mt-4">
+                    <div class="row">
+                        <!-- Element 1 -->
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">INP</span>
+                                </div>
+                                <input type="search" name="INP" class="form-control" placeholder="INP d'Infirmier"
+                                    aria-label="INP d'Infirmier" aria-describedby="basic-addon1">
+                                <button type="submit" class="btn btn-outline-success">Trouver</button>
+                            </div>
+                        </div>
+
+                        <!-- Element 2 -->
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Nom</span>
+                                </div>
+                                <input type="search" name="nom" class="form-control" placeholder="Nom d'Infirmier"
+                                    aria-label="Nom d'Infirmier" aria-describedby="basic-addon1">
+                                <button type="submit" class="btn btn-outline-success">Trouver</button>
+                            </div>
+                        </div>
                     </div>
-                    <input type="search" name="INP" class="form-control " placeholder="INP d'Infirmier"
-                        aria-label="MX293234" aria-describedby="basic-addon1">
-                    <button type="submit" class="btn btn-outline-success mr-5">Trouver</button>
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">nom</span>
-                    </div>
-                    <input type="search" name="nom" class="form-control m" placeholder="nom d'Infirmier"
-                        aria-label="MX293234" aria-describedby="basic-addon1">
-                    <button type="submit" class="btn btn-outline-success">Trouver</button>
                 </div>
+
+
+
             </form>
 
         </div>
@@ -69,18 +85,21 @@
                             <td class="fs-5 align-middle">{{ $infirmier->prenom }}</td>
                             <td class="fs-5 align-middle">{{ $infirmier->nom_Hopital }}</td>
                             <td>
+
                                 <form id="update-{{ $infirmier->INP }}" action="/{{ $infirmier->INP }}/makeadmin"
                                     method="POST" style="display:inline;">
                                     @csrf
                                     @method('PATCH')
-                                    <button type="submit"
-                                        class="btn w-9 fs-5 {{ $infirmier->isAdmin ? 'btn-info' : 'btn-success' }}">
+                                </form>
+                                <div class="d-flex flex-column flex-md-row">
+                                    <button type="submit" form="update-{{ $infirmier->INP }}"
+                                        class="btn  fs-5 mb-2 mb-md-0 me-md-2 {{ $infirmier->isAdmin ? 'btn-info' : 'btn-success' }}">
                                         {{ $infirmier->isAdmin ? 'Prohiber' : 'Autoriser' }}
                                     </button>
-                                </form>
-                                <button type="button" class="btn fs-5 btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#confirmDeleteModal"
-                                    onclick="setDeleteForm('{{ $infirmier->INP }}')">Supprimer</button>
+                                    <button type="button" class="btn fs-5  btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#confirmDeleteModal"
+                                        onclick="setDeleteForm('{{ $infirmier->INP }}')">Supprimer</button>
+                                </div>
                                 <form id="delete-{{ $infirmier->INP }}" action="/{{ $infirmier->INP }}/supprimer"
                                     method="POST" style="display:inline;">
                                     @csrf
